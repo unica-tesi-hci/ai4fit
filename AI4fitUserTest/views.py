@@ -7,10 +7,11 @@ from django.utils import six
 from joblib import load
 import numpy as np
 from random import randint
+from datetime import datetime
 
 import pandas as pd
 import sklearn
-import json, codecs
+import json, codecs, time
 
 columns = ['o_distance', 'p_unknown', 'p_walking', 'p_running', 'r_time',
                'r_speed', 'r_distance', 'r_pace', 'o_pace', 'o_time',
@@ -141,3 +142,48 @@ def evaluate(request):
         return HttpResponse(json.dumps(response))
 
     return render(request, 'userTest.html')
+
+@csrf_exempt
+def saveResults(request):
+    requestList = list(map(int, list(six.iterlists(request.POST))[0][1]))
+    userPredictions = []
+    realMarks = []
+    workoutInstances = []
+    modelTypes = []
+    numFeatures = []
+    for i in range(len(requestList)):
+        if i < 5:
+            userPredictions.append(requestList[i])
+        elif i < 15:
+            realMarks.append(requestList[i])
+        elif i < 25:
+            workoutInstances.append(requestList[i])
+        elif i < 35:
+            modelTypes.append(requestList[i])
+        else:
+            numFeatures.append(requestList[i])
+    timeStamp = datetime.now()
+    filename = timeStamp.strftime("%Y-%b-%d_%H-%M-%S-%f")+".txt"
+    file = open(filename, "w")
+    line = "User Predictions:"
+    for i in range(5):
+        line = line + " " + str(userPredictions[i])
+    file.write(line + "\n")
+    line = "Real Marks:"
+    for i in range(10):
+        line = line + " " + str(realMarks[i])
+    file.write(line + "\n")
+    line = "Workout Instances:"
+    for i in range(10):
+        line = line + " " + str(workoutInstances[i])
+    file.write(line + "\n")
+    line = "Models:"
+    for i in range(10):
+        line = line + " " + str(modelTypes[i])
+    file.write(line + "\n")
+    line = "Feature number:"
+    for i in range(10):
+        line = line + " " + str(numFeatures[i])
+    file.write(line)
+    file.close()
+    return HttpResponse(1)

@@ -67,7 +67,7 @@ function modifyOffset() {
     }
 
     outputTag.style.left = newPlace + "px";
-    outputTag.style.marginLeft = (offset*6) + "%";
+    outputTag.style.marginLeft = (offset * 6) + "%";
     //outputTag.innerHTML = this.value;
 }
 
@@ -121,11 +121,15 @@ function draw_limits(fts) {
     for (let i = 0; i < feature_number; i++) {
         let id_sx = "#limit_sx_" + i;
         let id_dx = "#limit_dx_" + i;
+        let id_extra = "#extra_" + i;
         if ($(id_sx).length) {
             $(id_sx).remove();
         }
         if ($(id_dx).length) {
             $(id_dx).remove();
+        }
+        if ($(id_extra).length) {
+            $(id_extra).remove();
         }
 
     }
@@ -183,7 +187,7 @@ function draw_limits(fts) {
             output_slider.id = input_slider.id + "_out";
             // float limit
             //output_slider.innerHTML = featureValue.toFixed(2);
-            let curr_value = document.getElementById("outrange"+k);
+            let curr_value = document.getElementById("outrange" + k);
             output_slider.innerHTML = curr_value.innerHTML;
             document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value");
             let container = document.getElementById(workoutKeys[k]);
@@ -255,7 +259,7 @@ function draw_limits(fts) {
 
             // float limit
             //output_slider.innerHTML = featureValue.toFixed(2);
-            let curr_value = document.getElementById("outrange"+k);
+            let curr_value = document.getElementById("outrange" + k);
             output_slider.innerHTML = curr_value.innerHTML;
             document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value");
             let container = document.getElementById(workoutKeys[k]);
@@ -283,7 +287,7 @@ function draw_limits(fts) {
         if (fts[workoutKeys[k]][0][0] === -1 && fts[workoutKeys[k]][1][0] === -1) {
             let featureValue = fts[workoutKeys[k]][1][0];
             var output_slider = document.createElement("output");
-            output_slider.id = "extra_out_"+workoutKeys[k];
+            output_slider.id = "extra_out_" + workoutKeys[k];
 
             // float limit
             output_slider.innerHTML = featureValue.toFixed(2);
@@ -318,11 +322,16 @@ function draw_limits(fts) {
 }
 
 var randomWorkouts = [];
+var randomFeatures = [];
+var randomModels = [];
 for (var j = 0; j < 10; j++) {
     var n = Math.floor(Math.random() * 15);
     while (randomWorkouts.includes(n)) {
         n = Math.floor(Math.random() * 15);
     }
+
+    randomFeatures.push((Math.floor(Math.random() * 3) + 1) * 4);
+    randomModels.push(Math.floor(Math.random() * 3) + 1);
     randomWorkouts.push(n)
 }
 
@@ -330,6 +339,7 @@ var workout;
 var modelType;
 var workoutKeys = Object.keys(workoutOrdinato);
 var predictions = {};
+var userResults = [];
 
 function createFeatureList() {
     var featureList = [];
@@ -472,9 +482,9 @@ var features_meaning = {
 function generateHTML(workoutArrayIndex) {
     var currentMark = Math.trunc(randomWorkouts[workoutArrayIndex] / 3);
     var currentInstance = randomWorkouts[workoutArrayIndex] % 3;
-    numFeatures = (Math.floor(Math.random() * 3) + 1) * 4;
+    numFeatures = randomFeatures[workoutArrayIndex];
 
-    modelType = Math.floor(Math.random() * 3) + 1;
+    modelType = randomModels[workoutArrayIndex];
     workout = workouts[currentMark][currentInstance];
     for (var i = 0; i < numFeatures; i++) {
         var col_border = document.createElement("div");
@@ -608,6 +618,7 @@ function generateHTML(workoutArrayIndex) {
         button.innerHTML = 'Confirm mark';
         button.onclick = function () {
             if (document.getElementById("evaluation_form").value !== "") {
+                userResults.push(document.getElementById("evaluation_form").value);
                 $("#f1").empty();
                 $("#f2").empty();
                 generateHTML(workoutArrayIndex + 1);
@@ -621,10 +632,26 @@ function generateHTML(workoutArrayIndex) {
         button.innerHTML = 'Terminate Evaluation';
         button.className = "btn btn-outline-success mb-2 wkbotton";
         button.onclick = function () {
-            $("#f1").empty();
-            $("#f2").empty();
-            workoutArrayIndex = numFeatures;
-        };
+            userResults.push(document.getElementById("evaluation_form").value);
+            var markArray = randomWorkouts.map(x => Math.trunc(x / 3)+1);
+            var finalTestArray = userResults.concat(markArray);
+            finalTestArray = finalTestArray.concat(randomWorkouts);
+            finalTestArray = finalTestArray.concat(randomModels);
+            finalTestArray = finalTestArray.concat(randomFeatures);
+            $.ajax({
+                url: 'saveResults',
+                type: 'POST',
+                data: {
+                    results: finalTestArray
+                },
+                success: function (response) {
+                    workoutArrayIndex = numFeatures;
+                },
+                error: function () {
+                    console.log("Errore richiesta valutazione")
+                }
+            })
+        }
     }
 }
 

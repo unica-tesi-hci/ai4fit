@@ -4,5 +4,6 @@ from . import views
 
 app_name = 'AI4fitUserTest'
 urlpatterns = [
-    path('', views.evaluate, name='evaluate')
+    path('', views.evaluate, name='evaluate'),
+    path('saveResults', views.saveResults, name='saveResults')
 ]
