@@ -200,13 +200,6 @@ function draw_limits(fts) {
             div_slider_sx.classList.add("disable-div");
             document.getElementById(output_slider.id).style.visibility = "hidden";
 
-            // aggiunta mark sotto input
-            /*input_slider.setAttribute('data-toggle', 'tooltip');
-            input_slider.setAttribute('data-placement', 'bottom');
-            input_slider.setAttribute('title', fts[workoutKeys[k]][0][1]);
-            let slider_id = "#" + input_slider.id;
-            $(slider_id).css({'pointer-events': 'none'}).tooltip('show');*/
-
             let out_info = document.createElement("p");
             out_info.id = output_slider.id + "_info";
             out_info.className = "mark-info-sx";
@@ -451,29 +444,57 @@ function reverseNormalize(x, mean, min, max) {
 
 
 var features_meaning = {
-    r_speed: 'Media delle velocità di tutte le attività di un allenamento',
-    calories: 'Calorie consumate in questo allenamento',
-    r_distance: 'Somma delle distanze di tutte le attività di un allenamento',
-    d_distance: 'Percentuale di distacco tra obiettivo corretto ed eseguito (distanza)',
-    p_welldone: 'Percentuale di attività con distacco pari a 0 in quell\'allenamento',
-    o_time: 'Obiettivo di tempo',
-    r_time: 'Somma dei tempi di tutte le attività di un allenamento',
-    p_walking: 'Percentuale di attività \'walking\' in quell\'allenamento',
-    height: 'Altezza atleta',
-    o_distance: 'Obiettivo di distanza',
-    weight: 'Peso atleta',
-    bmi: 'Bmi atlea',
-    age: 'Età atleta',
-    p_running: 'Percentuale di attività \'running\' in quell\'allenamento',
-    r_pace: 'Media del passo di tutte le attività di un allenamento',
-    p_unknown: 'Percentuale di attività \'unknown\' in quell\'allenamento',
+    r_speed: 'Average speed of all the activities of the wourkout',
+    calories: 'Burnt calories during the workout',
+    r_distance: 'Sum of the distance of all activities of the workout',
+    d_distance: 'Gap between target distance and distance traveled, expressed in percentage',
+    p_welldone: 'Portion of workout with gap between target value and performed value equal to zero, expressed in percentage',
+    o_time: 'Sum of the target time all activities with time as target type',
+    r_time: 'Sum of the time of all activities of the workout',
+    p_walking: 'Walking portion in the workout, expressed in percentage',
+    height: 'User height',
+    o_distance: 'Sum of the target distance all activities with distance as target type',
+    weight: 'User weight',
+    bmi: 'User BMI',
+    age: 'User age',
+    p_running: 'Running portion in the workout, expressed in percentage',
+    r_pace: 'Average pace of all activities of the workout',
+    p_unknown: 'Unknown portion in the workout, expressed in percentage',
     // inserire anche queste?
     p_has_objective: 0.833333,
     d_time: 0.00695535,
     d_pace_mean: 0.00115923,
-    o_pace: 'Obiettivo di passo',
+    o_pace: 'Average target pace of all activities with pace as target type',
     d_pace_std: 0.0302507,
-    weight_situation: 'Fascia di peso',
+    weight_situation: 'Weight category of the user',
+    gender: 1,
+    d_pace_var: 0.000915104
+};
+
+var features_readable_names = {
+    r_speed: 'Average Speed',
+    calories: 'Calories',
+    r_distance: 'Distance Covered',
+    d_distance: 'Distance Gap',
+    p_welldone: 'Successful Percentage',
+    o_time: 'Target Time',
+    r_time: 'Total time',
+    p_walking: 'Walking Percentage',
+    height: 'User Heigth',
+    o_distance: 'Target Distance',
+    weight: 'User Weight',
+    bmi: 'User BMI',
+    age: 'User Age',
+    p_running: 'Running Percentage',
+    r_pace: 'Average Pace',
+    p_unknown: 'Unknown Percentage',
+    // inserire anche queste?
+    p_has_objective: 0.833333,
+    d_time: 0.00695535,
+    d_pace_mean: 0.00115923,
+    o_pace: 'Target Pace',
+    d_pace_std: 0.0302507,
+    weight_situation: 'Weight Category',
     gender: 1,
     d_pace_var: 0.000915104
 };
@@ -493,9 +514,15 @@ function generateHTML(workoutArrayIndex) {
         col_border.style.marginBottom = "10px";
         var p_feature = document.createElement("p");
         p_feature.className = "feature";
-        p_feature.setAttribute("data-toggle", "tooltip");
-        p_feature.title = features_meaning[workoutKeys[i]];
-        p_feature.innerText = workoutKeys[i];
+        p_feature.innerText = features_readable_names[workoutKeys[i]];
+        var tooltipI = document.createElement("i");
+        tooltipI.className = "fa fa-info-circle";
+        tooltipI.style.fontSize = "18px";
+        tooltipI.style.color = "#009bde";
+        tooltipI.style.marginLeft = "5px";
+        tooltipI.setAttribute("data-toggle", "tooltip");
+        tooltipI.title = features_meaning[workoutKeys[i]];
+        p_feature.append(tooltipI);
         var div_slider = document.createElement("div");
         var input_slider = document.createElement("input");
         input_slider.id = "range" + i;
@@ -539,11 +566,9 @@ function generateHTML(workoutArrayIndex) {
         var container;
         if (i % 2 == 0) {
             container = document.getElementById('f1');
-            p_feature.setAttribute("data-placement", "left");
-            div_slider.className = "range range-success";
+            div_slider.className = "range range-primary";
         } else {
             container = document.getElementById('f2');
-            p_feature.setAttribute("data-placement", "right");
             div_slider.className = "range range-primary";
         }
 
@@ -583,7 +608,7 @@ function generateHTML(workoutArrayIndex) {
             document.getElementById("mark").remove();
 
             // creo la struttura del nuovo bottone
-            let eval_button = document.createElement("form");
+            //let eval_button = document.createElement("form");
             let eval_button_div = document.createElement("div");
             eval_button_div.className = "from-group";
             let button_input = document.createElement("input");
@@ -597,9 +622,9 @@ function generateHTML(workoutArrayIndex) {
             button_input.setAttribute("oninput", "this.value=this.value.replace(/[^1-5]/g,'');");
 
             eval_button_div.appendChild(button_input);
-            eval_button.appendChild(eval_button_div);
+            //eval_button.appendChild(eval_button_div);
             // aggiungo il nuovo elemento al posto del precedente
-            document.getElementById("mark_div").appendChild(eval_button);
+            document.getElementById("mark_div").appendChild(eval_button_div);
 
             // rimuovo il pulsante per la valutazione
             document.getElementById("evaluate_button").remove();
@@ -646,6 +671,11 @@ function generateHTML(workoutArrayIndex) {
                 },
                 success: function (response) {
                     workoutArrayIndex = numFeatures;
+                    $("#list-container").empty();
+                    var p = document.createElement("h2");
+                    p.innerHTML = "Thank you for partecipating to our survey!";
+                    p.className = "row justify-content-center";
+                    document.getElementById("list-container").append(p);
                 },
                 error: function () {
                     console.log("Errore richiesta valutazione")
