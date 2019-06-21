@@ -401,6 +401,15 @@ const workouts = [
     ]
 ];
 
+var workoutsDescription = [
+    "This workout starts with 3 warm-up walking activites of 300 seconds. Then it alternates a running activity with target distance of 50 meters and a walking activity with target time of 80 seconds for 13 repetitions. It finishes with warm-down made of a walking activity of 300 seconds, a rest activity of 300 seconds.",
+    "This workout starts with 2 running activities of 600 and 480 seconds and 120 seconds of rest. Then we have 30 running activities with a target time of 60 seconds . It finishes with warm-down made of a resting activity of 120 seconds.",
+    "This workout starts with a walking activitiy of 480 seconds and 120 seconds of rest. Then we have 2 repetitions of 360 seconds of running followed by 120 seconds of walking. After that we have 15 repetitions of 60 seconds of running followed by 60 seconds of walking. It finishes with 180 seconds of rest.",
+    "This workout starts with a walking activitiy of 480 seconds and 120 seconds of rest. Then we have 4 repetitions of this set of activities: 120 seconds of walk, 60 seconds of walk and 30 seconds of rest, all aof them for 3 times followed by another 30 seconds rest.",
+    "This workout starts with a walking activitiy of 600 seconds and 120 seconds of rest. Then we have 4 repetitions of this set of activities: 150 seconds of walk, 60 seconds of walk and 30 seconds of rest, all of them for 3 times followed by another 30 seconds rest.",
+];
+
+
 var workoutOrdinato = {
     o_distance: -0.057846,
     p_unknown: -0.0541757,
