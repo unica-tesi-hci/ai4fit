@@ -402,12 +402,175 @@ const workouts = [
 ];
 
 var workoutsDescription = [
-    "This workout starts with 3 warm-up walking activites of 300 seconds. Then it alternates a running activity with target distance of 50 meters and a walking activity with target time of 80 seconds for 13 repetitions. It finishes with warm-down made of a walking activity of 300 seconds, a rest activity of 300 seconds.",
+    "This workout starts with 3 warm-up walking activites of 300 seconds. Then it alternates a running activity with target distance of 50 meters and a walking activity with target time of 80 seconds for 13 repetitions. It finishes with warm-down made of a walking activity of 300 seconds and a rest activity of 300 seconds.",
     "This workout starts with 2 running activities of 600 and 480 seconds and 120 seconds of rest. Then we have 30 running activities with a target time of 60 seconds . It finishes with warm-down made of a resting activity of 120 seconds.",
-    "This workout starts with a walking activitiy of 480 seconds and 120 seconds of rest. Then we have 2 repetitions of 360 seconds of running followed by 120 seconds of walking. After that we have 15 repetitions of 60 seconds of running followed by 60 seconds of walking. It finishes with 180 seconds of rest.",
-    "This workout starts with a walking activitiy of 480 seconds and 120 seconds of rest. Then we have 4 repetitions of this set of activities: 120 seconds of walk, 60 seconds of walk and 30 seconds of rest, all aof them for 3 times followed by another 30 seconds rest.",
-    "This workout starts with a walking activitiy of 600 seconds and 120 seconds of rest. Then we have 4 repetitions of this set of activities: 150 seconds of walk, 60 seconds of walk and 30 seconds of rest, all of them for 3 times followed by another 30 seconds rest.",
+    "This workout starts with a walking activity of 480 seconds and 120 seconds of rest. Then we have 2 repetitions of 360 seconds of running followed by 120 seconds of walking. After that we have 15 repetitions of 60 seconds of running followed by 60 seconds of walking. It finishes with 180 seconds of rest.",
+    "This workout starts with a walking activity of 480 seconds and 120 seconds of rest. Then we have 4 repetitions of this set of activities: 120 seconds of walk, 60 seconds of walk and 30 seconds of rest, all aof them for 3 times followed by another 30 seconds rest.",
+    "This workout starts with a walking activity of 600 seconds and 120 seconds of rest. Then we have 4 repetitions of this set of activities: 150 seconds of walk, 60 seconds of walk and 30 seconds of rest, all of them for 3 times followed by another 30 seconds rest.",
+    "This workout starts with a walking activity of 600 seconds and 120 seconds of rest. Then we have 5 repetitions of this set of activities: 300 seconds of walk, 180 seconds of walk and 60 seconds of rest. At the end of the 3rd and the 5th repetition, we have 120 seconds of rest.",
+    "This workout starts with a walking activity of 720 seconds and 240 seconds of rest. Then we have 5 repetitions of 360 seconds of running followed by 120 seconds of walking. It finishes with 180 seconds of rest.",
+    "This workout starts with a walking activity of 600 seconds and 180 seconds of rest. Then we have 6 repetitions of 240 seconds of running followed by 240 seconds of walking. It finishes with 180 seconds of rest.",
+    "This workout starts with a walking activity of 480 seconds and 180 seconds of rest. Then we have 6 repetitions of 300 seconds of running followed by 240 seconds of walking. It finishes with 180 seconds of rest.",
+    "This workout starts with a running activity of 600 seconds. Then we have 4 repetitions of 120 seconds of running followed by 120 seconds of walking. It finishes with 540 seconds of running.",
+    "This workout starts with a walking activity of 480 seconds and 120 seconds of rest. Then we have 3 repetitions of 90 seconds of walking followed by 30 seconds of walking, followed by 4 repetitions of 120 seconds of walking followed by 60 seconds of walking. It finishes with 240 seconds of rest.",
+    "This workout starts with a walking activity of 600 seconds and 120 seconds of rest. Then we have 2 repetitions of 279 seconds of walking followed by 120 seconds of walking, followed by a section with 280 + 120 + 280 seconds of walking, which continues with a rest of 120 seconds. Then we have 16 repetitions of 60 seconds of walking. It finishes with 120 seconds of rest.",
+    "This workout consists of 2720 seconds of running",
+    "This workout consists of 400 seconds of running followed by 2160 of running",
+    "This workout starts with a walking activity of 60 seconds and 60 seconds of running. Then we have a section with 30 seconds of walking, 120 seconds of running and 30 seconds of walking, followed by a section with 315 + 1260 + 312 seconds of running. It finishes with 324 seconds of running."
 ];
+
+/*
+var workoutSummary = [
+    "Time type objective activities: 54,5% <br>" +
+    "Distance type objective activities: 36,4% <br>" +
+    "Distance-Time(Pace) type objective activities: 9,1%",
+
+    "Time type objective activities: 100% <br>" +
+    "Distance type objective activities: 0% <br>" +
+    "Distance-Time(Pace) type objective activities: 0%",
+
+    "Time type objective activities: 100% <br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 0%",
+
+    "Time type objective activities: 100%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 0%",
+
+    "Time type objective activities: 100%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 0%",
+
+    "Time type objective activities: 100%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 0%",
+
+    "Time type objective activities: 100%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 0%",
+
+    "Time type objective activities: 100%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 0%",
+
+    "Time type objective activities: 100%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 0%",
+
+    "Time type objective activities: 40%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 60%",
+
+    "Time type objective activities: 100%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 0%",
+
+    "Time type objective activities: 85.1%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 14.9%",
+
+    "Time type objective activities: 0%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 100%",
+
+    "Time type objective activities: 0%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 100%",
+
+    "Time type objective activities: 56%<br>" +
+    "Distance type objective activities: 0%<br>" +
+    "Distance-Time(Pace) type objective activities: 44%"
+];
+ */
+
+var workoutSummary = [
+    "Time: 54,5% <br>" +
+    "Distance: 36,4% <br>" +
+    "Distance-Time(Pace): 9,1%",
+
+    "Time: 100% <br>" +
+    "Distance: 0% <br>" +
+    "Distance-Time(Pace): 0%",
+
+    "Time: 100% <br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 0%",
+
+    "Time: 100%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 0%",
+
+    "Time: 100%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 0%",
+
+    "Time: 100%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 0%",
+
+    "Time: 100%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 0%",
+
+    "Time: 100%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 0%",
+
+    "Time: 100%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 0%",
+
+    "Time: 40%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 60%",
+
+    "Time: 100%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 0%",
+
+    "Time: 85.1%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 14.9%",
+
+    "Time: 0%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 100%",
+
+    "Time: 0%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 100%",
+
+    "Time: 56%<br>" +
+    "Distance: 0%<br>" +
+    "Distance-Time(Pace): 44%"
+];
+
+var workout_unit = {
+    o_distance: "m",
+    p_unknown: "%",
+    p_walking: "%",
+    p_running: "%",
+    r_time: "s",
+    r_speed: "m/s",
+    r_distance: "m",
+    r_pace: "mm:ss/km", //??
+    o_pace: "mm:ss/km", //??
+    o_time: "s",
+    p_welldone: "%",
+    weight_situation: "", //?
+    age: -0.0842126,
+    height: "cm",
+    weight: "kg",
+    gender: 0,
+    bmi: 19.9792,
+    calories: -0.126402,
+    p_has_objective: 0.0541757,
+    d_pace_std: -0.000662894,
+    d_pace_mean: 0.000461261,
+    d_time: "%",
+    d_distance: "%",
+    d_pace_var: "%"
+};
 
 
 var workoutOrdinato = {

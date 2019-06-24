@@ -328,6 +328,9 @@ for (var j = 0; j < 10; j++) {
     randomWorkouts.push(n)
 }
 
+console.log(randomWorkouts)
+
+
 var workout;
 var modelType;
 var workoutKeys = Object.keys(workoutOrdinato);
@@ -434,9 +437,6 @@ $(document).ready(function () {
 
     document.getElementById("evaluate_button").click();
 });
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-});
 
 function reverseNormalize(x, mean, min, max) {
     return ((max - min) * x) + mean;
@@ -466,7 +466,15 @@ var features_meaning = {
     d_pace_mean: 0.00115923,
     o_pace: 'Average target pace of all activities with pace as target type',
     d_pace_std: 0.0302507,
-    weight_situation: 'Weight category of the user',
+    weight_situation: 'Weight category of the user:\n' +
+        '1 if bmi < 16' + ' <br> ' +
+        '2 if 17 > bmi >= 16' + ' <br> ' +
+        '3 if 18.5 > bmi >= 17' + ' <br> ' +
+        '4 if 25 > bmi >= 18.5' + ' <br> ' +
+        '5 if 30 > bmi >= 25' + ' <br> ',/* +
+        '6 if 35 > bmi >= 30' + ' <br> ' +
+        '7 if 40 > bmi >= 35' + ' <br> ' +
+        '8  if bmi >= 40',*/
     gender: 1,
     d_pace_var: 0.000915104
 };
@@ -505,6 +513,11 @@ function generateHTML(workoutArrayIndex) {
     var currentInstance = randomWorkouts[workoutArrayIndex] % 3;
     numFeatures = randomFeatures[workoutArrayIndex];
 
+    // attivazione tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
     modelType = randomModels[workoutArrayIndex];
     workout = workouts[currentMark][currentInstance];
     for (var i = 0; i < numFeatures; i++) {
@@ -514,7 +527,11 @@ function generateHTML(workoutArrayIndex) {
         col_border.style.marginBottom = "10px";
         var p_feature = document.createElement("p");
         p_feature.className = "feature";
-        p_feature.innerText = features_readable_names[workoutKeys[i]];
+        //p_feature.innerText = features_readable_names[workoutKeys[i]];
+        if (workoutKeys[i] === "weight_situation")
+            p_feature.innerText = features_readable_names[workoutKeys[i]];
+        else
+            p_feature.innerText = features_readable_names[workoutKeys[i]] + " (" + workout_unit[workoutKeys[i]] + ")";
         var tooltipI = document.createElement("i");
         tooltipI.className = "fa fa-info-circle";
         tooltipI.style.fontSize = "18px";
@@ -522,6 +539,8 @@ function generateHTML(workoutArrayIndex) {
         tooltipI.style.marginLeft = "5px";
         tooltipI.setAttribute("data-toggle", "tooltip");
         tooltipI.title = features_meaning[workoutKeys[i]];
+        // per avere l'a capo dopo ogni categoria
+        tooltipI.setAttribute('data-html', 'true');
         p_feature.append(tooltipI);
         var div_slider = document.createElement("div");
         var input_slider = document.createElement("input");
@@ -582,6 +601,16 @@ function generateHTML(workoutArrayIndex) {
         var button = document.getElementById("next_button");
 
         document.getElementById("current_workout").innerHTML = "Workout " + parseInt((workoutArrayIndex % 5) + 1);
+
+        // descrizione workout
+        document.getElementById("workout_description").innerHTML = workoutsDescription[randomWorkouts[workoutArrayIndex]];
+
+        // percentuale obiettivi workout
+        let wk_percent = document.getElementById("workout_objective");
+
+        wk_percent.setAttribute("data-html", "true");
+        wk_percent.innerHTML = workoutSummary[randomWorkouts[workoutArrayIndex]];
+
         document.getElementById("model_type").innerHTML = "Model " + modelType;
     }
 
@@ -658,7 +687,7 @@ function generateHTML(workoutArrayIndex) {
         button.className = "btn btn-outline-success mb-2 wkbotton";
         button.onclick = function () {
             userResults.push(document.getElementById("evaluation_form").value);
-            var markArray = randomWorkouts.map(x => Math.trunc(x / 3)+1);
+            var markArray = randomWorkouts.map(x => Math.trunc(x / 3) + 1);
             var finalTestArray = userResults.concat(markArray);
             finalTestArray = finalTestArray.concat(randomWorkouts);
             finalTestArray = finalTestArray.concat(randomModels);
