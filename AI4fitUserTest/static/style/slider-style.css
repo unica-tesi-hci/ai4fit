@@ -45,6 +45,7 @@ body {
 
 .model-mark {
     /*height: 70%;*/
+    margin-top: -40px;
     display: flex;
     align-items: center;
     font-size: 150px;
@@ -136,6 +137,7 @@ body {
 
 #workout_description {
     font-size: 14px;
+    text-align: left;
 }
 
 #workout_objective {
@@ -146,6 +148,13 @@ body {
     margin-bottom: 2px;
     font-weight: 500;
 
+}
+
+hr{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /**********************************************/

@@ -147,12 +147,19 @@ def evaluate(request):
 def saveResults(request):
     requestList = list(map(int, list(six.iterlists(request.POST))[0][1]))
     timeStamp = datetime.now()
-    filename = timeStamp.strftime("%Y-%b-%d_%H-%M-%S-%f")+".txt"
+    filename = timeStamp.strftime("%Y-%b-%d_%H-%M-%S-%f")+".csv"
     file = open(filename, "w")
-    line = filename + " "
+    line = filename
     for i in range(len(requestList)):
-        line = line + " " + str(requestList[i])
+        line = line + "," + str(requestList[i])
+    headLine = 'index,UserMark0,UserMark1,UserMark2,UserMark3,UserMark4,RealMark0,RealMark1,RealMark2,RealMark3,' \
+               'RealMark4,RealMark5,RealMark6,RealMark7,RealMark8,RealMark9,WorkoutInstance0,WorkoutInstance1,' \
+               'WorkoutInstance2,WorkoutInstance3,WorkoutInstance4,WorkoutInstance5,WorkoutInstance6,WorkoutInstance7' \
+               ',WorkoutInstance8,WorkoutInstance9,AIModel0,AIModel1,AIModel2,AIModel3,AIModel4,AIModel5,AIModel6,' \
+               'AIModel7,AIModel8,AIModel9,FeatureNumber0,FeatureNumber1,FeatureNumber2,FeatureNumber3,FeatureNumber4,' \
+               'FeatureNumber5,FeatureNumber6,FeatureNumber7,FeatureNumber8,FeatureNumber9\n'
 
+    file.write(headLine)
     file.write(line)
     file.close()
     return HttpResponse(1)

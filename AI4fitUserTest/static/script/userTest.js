@@ -328,9 +328,6 @@ for (var j = 0; j < 10; j++) {
     randomWorkouts.push(n)
 }
 
-console.log(randomWorkouts)
-
-
 var workout;
 var modelType;
 var workoutKeys = Object.keys(workoutOrdinato);
