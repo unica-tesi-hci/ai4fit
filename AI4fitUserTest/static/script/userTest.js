@@ -113,6 +113,7 @@ function modifyInputs() {
 
 
 var numFeatures;
+let original_values
 
 function draw_limits(fts) {
 
@@ -616,7 +617,8 @@ function generateHTML(workoutArrayIndex) {
         button.onclick = function () {
             $("#f1").empty();
             $("#f2").empty();
-            generateHTML(workoutArrayIndex + 1);
+            current_workoutArrayIndex = current_workoutArrayIndex + 1;
+            generateHTML(current_workoutArrayIndex);
             document.getElementById("evaluate_button").click();
         };
     }
@@ -658,7 +660,8 @@ function generateHTML(workoutArrayIndex) {
             document.querySelector('#col2 p').innerHTML = 'Insert mark:';
 
 
-            generateHTML(workoutArrayIndex + 1);
+            current_workoutArrayIndex = current_workoutArrayIndex + 1;
+            generateHTML(current_workoutArrayIndex);
 
             // disabilito gli slider relativi alle feature
             col.classList.add("disable-div");
@@ -672,7 +675,8 @@ function generateHTML(workoutArrayIndex) {
                 userResults.push(document.getElementById("evaluation_form").value);
                 $("#f1").empty();
                 $("#f2").empty();
-                generateHTML(workoutArrayIndex + 1);
+                current_workoutArrayIndex = current_workoutArrayIndex + 1;
+                generateHTML(current_workoutArrayIndex);
                 document.getElementById("evaluation_form").value = "";
             } else {
                 alert("No mark inserted!");
@@ -711,4 +715,13 @@ function generateHTML(workoutArrayIndex) {
     }
 }
 
-generateHTML(0);
+function resetFeaturesValue() {
+    $("#f1").empty();
+    $("#f2").empty();
+    generateHTML(current_workoutArrayIndex);
+    document.getElementById("evaluate_button").click();
+
+}
+
+let current_workoutArrayIndex = 0;
+generateHTML(current_workoutArrayIndex);
