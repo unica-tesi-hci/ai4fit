@@ -12,9 +12,11 @@ RUN mkdir /AI4fitUserTest
 # Set the working directory to /AI4fitUserTest
 WORKDIR /AI4fitUserTest
 
-COPY . /AI4fitUserTest
+COPY requirements.txt /AI4fitUserTest/
 
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
+
+COPY . /AI4fitUserTest
 
 EXPOSE 8001
