@@ -7,13 +7,14 @@ FROM python:3.6
 ENV PYTHONUNBUFFERED 1
 
 # create root directory for our project in the container
-RUN mkdir /AI4fitUserEvaluation
+RUN mkdir /AI4fitUserTest
 
-# Set the working directory to /AI4fitUserEvaluation
-WORKDIR /AI4fitUserEvaluation
+# Set the working directory to /AI4fitUserTest
+WORKDIR /AI4fitUserTest
 
-# Copy the current directory contents into the container at /AI4fitUserEvaluation
-ADD . /AI4fitUserEvaluation/
+COPY . /AI4fitUserTest
 
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
+
+EXPOSE 8001
