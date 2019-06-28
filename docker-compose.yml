@@ -8,5 +8,5 @@ services:
       - .:/AI4fitUserTest
     ports:
       - "8000:8000"
-    restart_policy:
-      condition: on-failure
+    restart:
+      on-failure
