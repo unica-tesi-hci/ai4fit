@@ -10,7 +10,9 @@ https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'user_evaluation.settings')
+from whitenoise import WhiteNoise
 
 application = get_wsgi_application()
+application = WhiteNoise(application, root='AI4fitUserTest/static')
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'user_evaluation.settings')
