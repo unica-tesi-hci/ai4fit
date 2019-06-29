@@ -148,7 +148,7 @@ def saveResults(request):
     requestList = list(map(int, list(six.iterlists(request.POST))[0][1]))
     timeStamp = datetime.now()
     filename = timeStamp.strftime("%Y-%b-%d_%H-%M-%S-%f")+".csv"
-    file = open(filename, "w")
+    file = open("TestResults/"+filename, "w")
     line = filename
     for i in range(len(requestList)):
         line = line + "," + str(requestList[i])
