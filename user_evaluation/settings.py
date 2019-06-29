@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=1wpn#ccggk_tei1=3*98i!txhpmq8ng-p203oab@)%ao1e36%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['10.25.0.244', 'localhost', '0.0.0.0', '127.0.0.1']
 
@@ -116,10 +116,20 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #add whitenoise
+    'django.contrib.sessions.middleware.SessionMiddleware',
+"django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'AI4fitUserTest/static')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    "AI4fitUserTest/static"
+    os.path.join(BASE_DIR, "static")
 ]
 
 STATIC_URL = '/static/'
+
+
