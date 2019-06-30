@@ -38,6 +38,19 @@ function offset(el) {
     return {top: rect.top + scrollTop, left: rect.left + scrollLeft}
 }
 
+function secondsToHMS(s) {
+    //console.log(s);
+    //s = s.toFixed(2);
+    var h = Math.floor(s / 3600); // Hours
+    s -= h * 3600;
+    var m = Math.floor(s / 60); // Minutes
+    s -= m * 60;
+    //console.log(s);
+    s = Math.round(s);
+    //console.log(s);
+    return h + ":" + (m < 10 ? '0' + m : m) + ":" + (s < 10 ? '0' + s : s); //zero padding on minutes and seconds
+}
+
 
 // gestione info voti
 function modifyOffset() {
@@ -91,8 +104,6 @@ function modifyInputs() {
 
     }
 
-    //console.log(inputs);
-
     for (var i = 0; i < inputs.length; i++) {
         if (inputs[i].getAttribute("type") === "range") {
             inputs[i].onchange = modifyOffset;
@@ -113,7 +124,6 @@ function modifyInputs() {
 
 
 var numFeatures;
-let original_values
 
 function draw_limits(fts) {
 
@@ -182,21 +192,39 @@ function draw_limits(fts) {
 
             /*** ***/
 
+
             let featureValue = fts[workoutKeys[k]][0][0];
-            input_slider.setAttribute("value", featureValue);
+            let ft_val = featureValue.toFixed(2);
             var output_slider = document.createElement("output");
             output_slider.id = input_slider.id + "_out";
-            // float limit
-            //output_slider.innerHTML = featureValue.toFixed(2);
             let curr_value = document.getElementById("outrange" + k);
-            output_slider.innerHTML = curr_value.innerHTML;
-            document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value");
+
+            if (workoutKeys[k] === 'r_pace' || workoutKeys[k] === 'o_pace') {
+                let sec = secondsToHMS(curr_value.innerHTML);
+                output_slider.innerHTML = sec;
+                let original_value = document.createElement('p');
+                original_value.id = "original_sx" + k;
+                original_value.innerHTML = ft_val;
+                original_value.className = 'original_value';
+                input_slider.setAttribute("value", featureValue);
+                document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=secondsToHMS(value); " + "original" + k + ".innerHTML=value; " + output_slider.id + ".value=secondsToHMS(value);");
+                div_slider_sx.append(input_slider);
+                div_slider_sx.append(output_slider);
+                div_slider_sx.append(original_value);
+
+            } else {
+                output_slider.innerHTML = curr_value.innerHTML;
+                input_slider.setAttribute("value", featureValue);
+                document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value;");
+                div_slider_sx.append(input_slider);
+                div_slider_sx.append(output_slider);
+            }
+
             let container = document.getElementById(workoutKeys[k]);
 
 
-            div_slider_sx.append(input_slider);
-            //div_slider_sx.append(input_slider_text);
-            div_slider_sx.append(output_slider);
+            //div_slider_sx.append(input_slider);
+            //div_slider_sx.append(output_slider);
             container.append(div_slider_sx);
             div_slider_sx.classList.add("disable-div");
             document.getElementById(output_slider.id).style.visibility = "hidden";
@@ -247,19 +275,42 @@ function draw_limits(fts) {
 
 
             let featureValue = fts[workoutKeys[k]][1][0];
-            input_slider.setAttribute("value", featureValue);
+            let ft_val = featureValue.toFixed(2);
             var output_slider = document.createElement("output");
             output_slider.id = input_slider.id + "_out";
+            let curr_value = document.getElementById("outrange" + k);
+
+            if (workoutKeys[k] === 'r_pace' || workoutKeys[k] === 'o_pace') {
+                let sec = secondsToHMS(curr_value.innerHTML);
+                output_slider.innerHTML = sec;
+                let original_value = document.createElement('p');
+                original_value.id = "original_dx" + k;
+                original_value.innerHTML = ft_val;
+                original_value.className = 'original_value';
+                input_slider.setAttribute("value", featureValue);
+                document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=secondsToHMS(value); " + "original" + k + ".innerHTML=value; " + output_slider.id + ".value=secondsToHMS(value);");
+                div_slider_dx.append(input_slider);
+                div_slider_dx.append(output_slider);
+                div_slider_dx.append(original_value);
+                console.log(input_slider.onchange)
+
+            } else {
+                output_slider.innerHTML = curr_value.innerHTML;
+                input_slider.setAttribute("value", featureValue);
+                document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value;");
+                div_slider_dx.append(input_slider);
+                div_slider_dx.append(output_slider);
+            }
+
+
+            input_slider.setAttribute("value", featureValue);
 
             // float limit
             //output_slider.innerHTML = featureValue.toFixed(2);
-            let curr_value = document.getElementById("outrange" + k);
-            output_slider.innerHTML = curr_value.innerHTML;
-            document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value");
             let container = document.getElementById(workoutKeys[k]);
 
-            div_slider_dx.append(input_slider);
-            div_slider_dx.append(output_slider);
+            //div_slider_dx.append(input_slider);
+            //div_slider_dx.append(output_slider);
             container.append(div_slider_dx);
             div_slider_dx.classList.add("disable-div");
             document.getElementById(output_slider.id).style.visibility = "hidden";
@@ -283,9 +334,27 @@ function draw_limits(fts) {
             var output_slider = document.createElement("output");
             output_slider.id = "extra_out_" + workoutKeys[k];
 
+            if (workoutKeys[k] === 'r_pace' || workoutKeys[k] === 'o_pace') {
+                let sec = secondsToHMS(featureValue.toFixed(2));
+                output_slider.innerHTML = sec;
+                let original_value = document.createElement('p');
+                original_value.id = "original_extra" + k;
+                original_value.innerHTML = featureValue;
+                original_value.className = 'original_value';
+                document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=secondsToHMS(value); " + "original" + k + ".innerHTML=value; " + output_slider.id + ".value=secondsToHMS(value);");
+                div_slider_dx.append(output_slider);
+                div_slider_dx.append(original_value);
+
+            } else {
+                output_slider.innerHTML = featureValue.toFixed(2);;
+                document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value;");
+                div_slider_dx.append(output_slider);
+            }
+
+
+
             // float limit
-            output_slider.innerHTML = featureValue.toFixed(2);
-            document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value");
+            //document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value");
             let container = document.getElementById(workoutKeys[k]);
 
             div_slider_dx.append(output_slider);
@@ -340,6 +409,7 @@ function createFeatureList() {
     for (var feature = 0; feature < 24; feature++) {
         var element = document.getElementById("outrange" + feature);
         var value;
+
         /*if (element !== null) {
             if (workoutKeys[feature] == "bmi" || workoutKeys[feature] == "weight_situation" || workoutKeys[feature] == "gender") {
                 value = parseFloat(element.value)
@@ -363,7 +433,15 @@ function createFeatureList() {
             featureList.push(value)
         }*/
         if (element !== null) {
-            if (workoutKeys[feature] == "bmi" || workoutKeys[feature] == "weight_situation" || workoutKeys[feature] == "gender") {
+
+            if (workoutKeys[feature] === 'o_pace' || workoutKeys[feature] === 'r_pace') {
+                console.log(feature, workoutKeys[feature]);
+                let orig = document.getElementById("original" + feature);
+                value = parseFloat(orig.innerHTML);
+                console.log(workoutKeys[feature], value);
+            }
+
+            else if (workoutKeys[feature] == "bmi" || workoutKeys[feature] == "weight_situation" || workoutKeys[feature] == "gender") {
                 value = parseFloat(element.value)
             } else {
                 if (workoutKeys[feature] == "d_distance" || workoutKeys[feature] == "d_time" || workoutKeys[feature] == "d_pace_mean" ||
@@ -385,6 +463,7 @@ function createFeatureList() {
             featureList.push(value)
         }
     }
+    console.log(featureList)
     return featureList
 }
 
@@ -546,6 +625,7 @@ function generateHTML(workoutArrayIndex) {
         input_slider.type = "range";
         input_slider.name = "range";
 
+
         var featureValue;
         if (workoutKeys[i] == "d_distance" || workoutKeys[i] == "d_time" || workoutKeys[i] == "d_pace_mean" ||
             workoutKeys[i] == "d_pace_std" || workoutKeys[i] == "d_pace_var" ||
@@ -571,15 +651,6 @@ function generateHTML(workoutArrayIndex) {
         }
 
 
-        var output_slider = document.createElement("output");
-        output_slider.id = "outrange" + i;
-        //output_slider.innerHTML = workout[workoutKeys[i]];
-        // float limit
-        output_slider.innerHTML = featureValue.toFixed(2);
-
-        input_slider.setAttribute("value", featureValue);
-        input_slider.setAttribute("onchange", "outrange" + i + ".value=value");
-
         var container;
         if (i % 2 == 0) {
             container = document.getElementById('f1');
@@ -589,8 +660,33 @@ function generateHTML(workoutArrayIndex) {
             div_slider.className = "range range-primary";
         }
 
-        div_slider.append(input_slider);
-        div_slider.append(output_slider);
+        var output_slider = document.createElement("output");
+        output_slider.id = "outrange" + i;
+        //output_slider.innerHTML = workout[workoutKeys[i]];
+        // float limit
+        let ft_val = featureValue.toFixed(2);
+        if (workoutKeys[i] === 'r_pace' || workoutKeys[i] === 'o_pace') {
+            let sec = secondsToHMS(ft_val);
+            output_slider.innerHTML = sec;
+            let original_value = document.createElement('p');
+            original_value.id = "original" + i;
+            original_value.innerHTML = ft_val;
+            original_value.className = 'original_value';
+            input_slider.setAttribute("value", featureValue);
+            input_slider.setAttribute("onchange", "outrange" + i + ".value=secondsToHMS(value); " + "original" + i + ".innerHTML=value");
+            div_slider.append(input_slider);
+            div_slider.append(output_slider);
+            div_slider.append(original_value);
+            //console.log(input_slider.onchange)
+
+        } else {
+            output_slider.innerHTML = ft_val;
+            input_slider.setAttribute("value", featureValue);
+            input_slider.setAttribute("onchange", "outrange" + i + ".value=value");
+            div_slider.append(input_slider);
+            div_slider.append(output_slider);
+        }
+
 
         col_border.append(p_feature);
         col_border.append(div_slider);

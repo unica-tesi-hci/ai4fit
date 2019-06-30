@@ -7,7 +7,508 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static  'AI4fitUserTest/../../static/style/slider-style.css' %}">
+    <!--<link rel="stylesheet" href="{% static  'AI4fitUserTest/../../static/style/slider-style.css' %}">-->
+    <style>
+        /*@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);*/
+
+        html, body {
+            height: 91%
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+        }
+
+        .row {
+            text-align: center;
+        }
+
+        .container {
+            height: 550px;
+            margin-top: -35px;
+            /*display: flex;
+            justify-content: center;*/
+        }
+
+
+        .border-hi {
+            border: 1px solid #dee2e6;
+        }
+
+        .border-hi-feature {
+            border: 1px solid #dee2e6;
+            cursor: pointer;
+        }
+
+
+        .feature {
+            margin-bottom: -3px;
+            cursor: pointer;
+        }
+
+        #row0 {
+            margin-top: 10px;
+            margin-bottom: 3px;
+        }
+
+
+        .model-mark {
+            /*height: 70%;*/
+            margin-top: -40px;
+            display: flex;
+            align-items: center;
+            font-size: 150px;
+            font-weight: 300;
+        }
+
+
+        .border-hi-feature:hover {
+            border-color: orange;
+            transition: border-color 0.5s;
+            transition-timing-function: ease;
+        }
+
+        .form-control {
+            width: 100px;
+            height: 170px;
+            font-size: 150px;
+            font-weight: 300;
+        }
+
+        .disable-div {
+            pointer-events: none;
+        }
+
+        .wkbotton {
+            margin-top: 10px;
+        }
+
+        .mark-text-zone {
+            margin-bottom: 10px;
+        }
+
+
+        .mark-info-dx {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            color: white;
+            background: #5bc0de;
+            border-radius: 10px;
+            display: inline-block;
+            font: bold 15px/30px Georgia;
+            bottom: -80%;
+            left: 0;
+        }
+
+        .mark-info-sx {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            color: white;
+            background: #f0ad4e;
+            border-radius: 10px;
+            display: inline-block;
+            font: bold 15px/30px Georgia;
+            bottom: -78%;
+            left: 0;
+        }
+
+        .mark-info-dx:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-bottom: 10px solid #5bc0de;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            top: -9px;
+            left: 50%;
+            margin-left: -5px;
+            margin-top: -1px;
+        }
+
+        .mark-info-sx:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-bottom: 10px solid #f0ad4e;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            top: -9px;
+            left: 50%;
+            margin-left: -5px;
+            margin-top: -1px;
+        }
+
+        #workout_description {
+            font-size: 14px;
+            text-align: left;
+        }
+
+        #workout_objective {
+            font-size: 14px;
+        }
+
+        #workout_title {
+            margin-bottom: 2px;
+            font-weight: 500;
+
+        }
+
+        hr {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+
+        .original_value {
+            position: absolute;
+            visibility: hidden;
+        }
+
+
+        /**********************************************/
+        .range {
+            display: table;
+            position: relative;
+            height: 25px; /* altezza slider*/
+            margin-top: 5px;
+            margin-bottom: 5px;
+            background-color: rgb(245, 245, 245);
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .range input[type="range"] {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            -ms-appearance: none !important;
+            -o-appearance: none !important;
+            appearance: none !important;
+
+            display: table-cell;
+            width: 100%;
+            background-color: transparent;
+            height: 25px;
+            cursor: pointer;
+        }
+
+        .range input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            -ms-appearance: none !important;
+            -o-appearance: none !important;
+            appearance: none !important;
+
+            margin-top: 3px;
+            width: 11px;
+            height: 28px; /* altezza tacchetta */
+            color: rgb(255, 255, 255);
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 1px;
+            border: 1px grey solid;
+            background-color: rgb(153, 153, 153);
+        }
+
+        .range output {
+            display: table-cell;
+            padding: 3px 5px 2px;
+            min-width: 40px;
+            color: rgb(255, 255, 255);
+            background-color: rgb(153, 153, 153);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+            width: 1%;
+            white-space: nowrap;
+            vertical-align: middle;
+
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            /*-moz-user-select: -moz-none;*/
+            -o-user-select: none;
+            user-select: none;
+        }
+
+        .range input[type="range"] {
+            outline: none;
+        }
+
+        .range.range-primary input[type="range"]::-webkit-slider-thumb {
+            background-color: rgb(66, 139, 202);
+        }
+
+        /*
+        .range.range-primary input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(66, 139, 202);
+        }*/
+        .range.range-primary output {
+            background-color: rgb(66, 139, 202);
+        }
+
+        .range.range-primary input[type="range"] {
+            outline-color: rgb(66, 139, 202);
+        }
+
+        .range.range-success input[type="range"]::-webkit-slider-thumb {
+            background-color: rgb(92, 184, 92);
+        }
+
+        /*
+        .range.range-success input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(92, 184, 92);
+        }*/
+        .range.range-success output {
+            background-color: rgb(92, 184, 92);
+        }
+
+        .range.range-success input[type="range"] {
+            outline-color: rgb(92, 184, 92);
+        }
+
+        .range.range-info input[type="range"]::-webkit-slider-thumb {
+            background-color: rgb(91, 192, 222);
+        }
+
+        /*
+        .range.range-info input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(91, 192, 222);
+        }*/
+        .range.range-info output {
+            background-color: rgb(91, 192, 222);
+        }
+
+        .range.range-info input[type="range"] {
+            outline-color: rgb(91, 192, 222);
+        }
+
+        .range.range-warning input[type="range"]::-webkit-slider-thumb {
+            background-color: rgb(240, 173, 78);
+        }
+
+        /*
+        .range.range-warning input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(240, 173, 78);
+        }*/
+        .range.range-warning output {
+            background-color: rgb(240, 173, 78);
+        }
+
+        .range.range-warning input[type="range"] {
+            outline-color: rgb(240, 173, 78);
+        }
+
+        .range.range-danger input[type="range"]::-webkit-slider-thumb {
+            background-color: rgb(217, 83, 79);
+        }
+
+        /*
+        .range.range-danger input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(217, 83, 79);
+        }*/
+        .range.range-danger output {
+            background-color: rgb(217, 83, 79);
+        }
+
+        .range.range-danger input[type="range"] {
+            outline-color: rgb(217, 83, 79);
+        }
+
+
+        /* nuova classe range per i limiti */
+
+
+        .range-lim {
+            display: table;
+            position: relative;
+            height: 25px; /* altezza slider*/
+            margin-top: 5px;
+            margin-bottom: 5px;
+            /*background-color: rgb(245, 245, 245);*/
+            border-radius: 4px;
+            /*-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);*/
+            cursor: pointer;
+        }
+
+        .range-lim input[type="range"] {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            -ms-appearance: none !important;
+            -o-appearance: none !important;
+            appearance: none !important;
+
+            display: table-cell;
+            width: 100%;
+            background-color: transparent;
+            height: 10px;
+            cursor: pointer;
+            visibility: hidden;
+        }
+
+        .range-lim input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            -ms-appearance: none !important;
+            -o-appearance: none !important;
+            appearance: none !important;
+
+            margin-top: -9px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid black;
+            /*
+                margin-top: 3px;
+                width: 11px;
+                height: 12px;
+                color: rgb(255, 255, 255);
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: baseline;
+                border-radius: 1px;
+                border: 1px grey solid;
+                background-color: rgb(153, 153, 153);
+                */
+
+        }
+
+        .range-lim output {
+            display: table-cell;
+            padding: 3px 5px 2px;
+            min-width: 40px;
+            color: rgb(255, 255, 255);
+            background-color: rgb(153, 153, 153);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+            width: 1%;
+            white-space: nowrap;
+            vertical-align: middle;
+
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            /*-moz-user-select: -moz-none;*/
+            -o-user-select: none;
+            user-select: none;
+        }
+
+        .range-lim input[type="range"] {
+            outline: none;
+        }
+
+
+        .range-lim.range-primary input[type="range"]::-webkit-slider-thumb {
+            background-color: rgb(66, 139, 202);
+        }
+
+        /*
+        .range.range-primary input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(66, 139, 202);
+        }*/
+        .range-lim.range-primary output {
+            background-color: rgb(66, 139, 202);
+        }
+
+        .range-lim.range-primary input[type="range"] {
+            outline-color: rgb(66, 139, 202);
+        }
+
+        .range-lim.range-success input[type="range"]::-webkit-slider-thumb {
+            background-color: rgb(92, 184, 92);
+        }
+
+        /*
+        .range.range-success input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(92, 184, 92);
+        }*/
+        .range-lim.range-success output {
+            background-color: rgb(92, 184, 92);
+        }
+
+        .range-lim.range-success input[type="range"] {
+            outline-color: rgb(92, 184, 92);
+        }
+
+        .range-lim.range-info input[type="range"]::-webkit-slider-thumb {
+            /*background-color: rgb(91, 192, 222);*/
+            border-bottom: 10px solid rgb(91, 192, 222);
+        }
+
+        /*
+        .range.range-info input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(91, 192, 222);
+        }*/
+        .range-lim.range-info output {
+            background-color: rgb(91, 192, 222);
+        }
+
+        .range-lim.range-info input[type="range"] {
+            outline-color: rgb(91, 192, 222);
+        }
+
+        .range-lim.range-warning input[type="range"]::-webkit-slider-thumb {
+            /*background-color: rgb(240, 173, 78);*/
+            border-bottom: 10px solid rgb(240, 173, 78);
+        }
+
+        /*
+        .range.range-warning input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(240, 173, 78);
+        }*/
+        .range-lim.range-warning output {
+            background-color: rgb(240, 173, 78);
+        }
+
+        .range-lim.range-warning input[type="range"] {
+            outline-color: rgb(240, 173, 78);
+        }
+
+        .range-lim.range-danger input[type="range"]::-webkit-slider-thumb {
+            background-color: rgb(217, 83, 79);
+        }
+
+        /*
+        .range.range-danger input[type="range"]::-moz-slider-thumb {
+            background-color: rgb(217, 83, 79);
+        }*/
+        .range-lim.range-danger output {
+            background-color: rgb(217, 83, 79);
+        }
+
+        .range-lim.range-danger input[type="range"] {
+            outline-color: rgb(217, 83, 79);
+        }
+    </style>
 </head>
 <body>
 <div class="container" id="list-container">
@@ -44,7 +545,9 @@
                 </div>
             </div>
             <button id="evaluate_button" type="button" class="btn btn-outline-success mb-2">Evaluate</button>
-            <button id="reset_button" type="button" class="btn btn-outline-dark mb-2" onclick="resetFeaturesValue()">Reset values</button>
+            <button id="reset_button" type="button" class="btn btn-outline-dark mb-2" onclick="resetFeaturesValue()">
+                Reset values
+            </button>
 
         </div>
 
@@ -59,7 +562,1439 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script src="{% static  "../static/script/workouts.js" %}"></script>
-<script src="{% static  "../static/script/userTest.js" %}"></script>
+<!--<script src="{% static  "../static/script/workouts.js" %}"></script>
+<script src="{% static  "../static/script/userTest.js" %}"></script>-->
+<script>
+    const workouts = [
+        [
+            {
+                o_distance: 24000,
+                o_time: 32920,
+                o_pace: 15400,
+                d_distance: 150,
+                d_time: 209.348,
+                d_pace_mean: 0.0882353,
+                d_pace_std: 0.283637,
+                d_pace_var: 0.0804498,
+                r_distance: 200.201,
+                r_speed: 0.108451,
+                r_time: 195.46,
+                r_pace: 28.7152,
+                p_running: 0.411765,
+                p_walking: 0.529412,
+                p_unknown: 0.0294118,
+                p_welldone: 0,
+                p_has_objective: 0.970588,
+                age: 37,
+                height: 175,
+                weight: 70,
+                gender: 1,
+                bmi: 22.8571,
+                weight_situation: 4,
+                calories: 1
+            },
+            {
+                o_distance: 0,
+                o_time: 12480,
+                o_pace: 0,
+                d_distance: 0,
+                d_time: 134.134,
+                d_pace_mean: 0,
+                d_pace_std: 0,
+                d_pace_var: 0,
+                r_distance: 2392.34,
+                r_speed: 0.219764,
+                r_time: 1119.7,
+                r_pace: 13.3724,
+                p_running: 0.914286,
+                p_walking: 0,
+                p_unknown: 0.0285714,
+                p_welldone: 0,
+                p_has_objective: 0.971429,
+                age: 33,
+                height: 162,
+                weight: 51,
+                gender: 0,
+                bmi: 19.433,
+                weight_situation: 4,
+                calories: 27
+            },
+            {
+                o_distance: 0,
+                o_time: 14160,
+                o_pace: 0,
+                d_distance: 0,
+                d_time: 144.04,
+                d_pace_mean: 0,
+                d_pace_std: 0,
+                d_pace_var: 0,
+                r_distance: 4577.4,
+                r_speed: 0.228155,
+                r_time: 1900.68,
+                r_pace: 10.9271,
+                p_running: 0.447368,
+                p_walking: 0.473684,
+                p_unknown: 0.0263158,
+                p_welldone: 0,
+                p_has_objective: 0.973684,
+                age: 33,
+                height: 162,
+                weight: 51,
+                gender: 0,
+                bmi: 19.433,
+                weight_situation: 4,
+                calories: 53
+            }
+        ],
+        [
+            {
+                o_distance: 0,
+                o_time: 27090,
+                o_pace: 0,
+                d_distance: 0,
+                d_time: 0,
+                d_pace_mean: 0,
+                d_pace_std: 0,
+                d_pace_var: 0,
+                r_distance: 40157.9,
+                r_speed: 5.23293,
+                r_time: 27317.3,
+                r_pace: 1274.91,
+                p_running: 0,
+                p_walking: 0.581395,
+                p_unknown: 0.0232558,
+                p_welldone: 1,
+                p_has_objective: 0.976744,
+                age: 40,
+                height: 158,
+                weight: 68,
+                gender: 0,
+                bmi: 27.2392,
+                weight_situation: 5,
+                calories: 351
+            },
+            {
+                o_distance: 0,
+                o_time: 21780,
+                o_pace: 0,
+                d_distance: 0,
+                d_time: 0,
+                d_pace_mean: 0,
+                d_pace_std: 0,
+                d_pace_var: 0,
+                r_distance: 26756.4,
+                r_speed: 4.48056,
+                r_time: 21805.2,
+                r_pace: 7458.17,
+                p_running: 0,
+                p_walking: 0.581395,
+                p_unknown: 0.0232558,
+                p_welldone: 1,
+                p_has_objective: 0.976744,
+                age: 51,
+                height: 163,
+                weight: 73,
+                gender: 0,
+                bmi: 27.4756,
+                weight_situation: 5,
+                calories: 293
+            },
+            {
+                o_distance: 0,
+                o_time: 25620,
+                o_pace: 0,
+                d_distance: 0,
+                d_time: 0,
+                d_pace_mean: 0,
+                d_pace_std: 0,
+                d_pace_var: 0,
+                r_distance: 33314.7,
+                r_speed: 4.0661,
+                r_time: 25720,
+                r_pace: 4993.73,
+                p_running: 0,
+                p_walking: 0.55,
+                p_unknown: 0.05,
+                p_welldone: 1,
+                p_has_objective: 0.95,
+                age: 40,
+                height: 158,
+                weight: 68,
+                gender: 0,
+                bmi: 27.2392,
+                weight_situation: 5,
+                calories: 291
+            }
+        ],
+        [
+            {
+                o_distance: 0,
+                o_time: 3540,
+                o_pace: 0,
+                d_distance: 0,
+                d_time: 0,
+                d_pace_mean: 0,
+                d_pace_std: 0,
+                d_pace_var: 0,
+                r_distance: 7509.34,
+                r_speed: 6.42012,
+                r_time: 4095.48,
+                r_pace: 578.65,
+                p_running: 0.357143,
+                p_walking: 0.428571,
+                p_unknown: 0.0714286,
+                p_welldone: 1,
+                p_has_objective: 0.928571,
+                age: 33,
+                height: 152,
+                weight: 48.5,
+                gender: 0,
+                bmi: 20.992,
+                weight_situation: 4,
+                calories: 328
+            },
+            {
+                o_distance: 0,
+                o_time: 3840,
+                o_pace: 0,
+                d_distance: 0,
+                d_time: 0,
+                d_pace_mean: 0,
+                d_pace_std: 0,
+                d_pace_var: 0,
+                r_distance: 7004.06,
+                r_speed: 6.5897,
+                r_time: 4082.53,
+                r_pace: 615.601,
+                p_running: 0.375,
+                p_walking: 0.4375,
+                p_unknown: 0.0625,
+                p_welldone: 1,
+                p_has_objective: 0.9375,
+                age: 33,
+                height: 152,
+                weight: 48.5,
+                gender: 0,
+                bmi: 20.992,
+                weight_situation: 4,
+                calories: 306
+            },
+            {
+                o_distance: 0,
+                o_time: 4080,
+                o_pace: 0,
+                d_distance: 0,
+                d_time: 0,
+                d_pace_mean: 0,
+                d_pace_std: 0,
+                d_pace_var: 0,
+                r_distance: 7614.01,
+                r_speed: 6.59581,
+                r_time: 4113.63,
+                r_pace: 571.871,
+                p_running: 0.375,
+                p_walking: 0.4375,
+                p_unknown: 0.0625,
+                p_welldone: 1,
+                p_has_objective: 0.9375,
+                age: 33,
+                height: 152,
+                weight: 48.5,
+                gender: 0,
+                bmi: 20.992,
+                weight_situation: 4,
+                calories: 332
+            }
+        ],
+        [
+            {
+                o_distance: 30000,
+                o_time: 10500,
+                o_pace: 7650,
+                d_distance: -0.161419,
+                d_time: 1.97315,
+                d_pace_mean: 0.0415689,
+                d_pace_std: 0.0448374,
+                d_pace_var: 0.00201039,
+                r_distance: 34746.2,
+                r_speed: 11.4861,
+                r_time: 10120,
+                r_pace: 371.963,
+                p_running: 0.545455,
+                p_walking: 0.363636,
+                p_unknown: 0.0909091,
+                p_welldone: 0.1,
+                p_has_objective: 0.909091,
+                age: 44,
+                height: 184,
+                weight: 80,
+                gender: 1,
+                bmi: 23.6295,
+                weight_situation: 4,
+                calories: 472
+            },
+            {
+                o_distance: 0,
+                o_time: 21120,
+                o_pace: 0,
+                d_distance: 0,
+                d_time: 0,
+                d_pace_mean: 0,
+                d_pace_std: 0,
+                d_pace_var: 0,
+                r_distance: 35119.4,
+                r_speed: 5.65622,
+                r_time: 21296,
+                r_pace: 590.385,
+                p_running: 0,
+                p_walking: 0.833333,
+                p_unknown: 0.0555556,
+                p_welldone: 1,
+                p_has_objective: 0.944444,
+                age: 41,
+                height: 170,
+                weight: 70,
+                gender: 0,
+                bmi: 24.2215,
+                weight_situation: 4,
+                calories: 105
+            },
+            {
+                o_distance: 6000,
+                o_time: 10194,
+                o_pace: 6708,
+                d_distance: -0.0619292,
+                d_time: 1.3101,
+                d_pace_mean: 0.0162244,
+                d_pace_std: 0.0458685,
+                d_pace_var: 0.00210392,
+                r_distance: 17031.4,
+                r_speed: 6.0921,
+                r_time: 9888,
+                r_pace: 607.825,
+                p_running: 0,
+                p_walking: 0.857143,
+                p_unknown: 0.0357143,
+                p_welldone: 0.851852,
+                p_has_objective: 0.964286,
+                age: 49,
+                height: 169,
+                weight: 70,
+                gender: 0,
+                bmi: 24.5089,
+                weight_situation: 4,
+                calories: 181
+            }
+        ],
+        [
+            {
+                o_distance: 40000,
+                o_time: 13600,
+                o_pace: 1700,
+                d_distance: -0.000515562,
+                d_time: 0.102941,
+                d_pace_mean: 0.0103446,
+                d_pace_std: 0.0103446,
+                d_pace_var: 0.000107011,
+                r_distance: 40052.9,
+                r_speed: 11.2625,
+                r_time: 13335,
+                r_pace: 320.157,
+                p_running: 0.5,
+                p_walking: 0,
+                p_unknown: 0.5,
+                p_welldone: 0,
+                p_has_objective: 0.5,
+                age: 54,
+                height: 175,
+                weight: 86,
+                gender: 1,
+                bmi: 28.0816,
+                weight_situation: 5,
+                calories: 620
+            },
+            {
+                o_distance: 7000,
+                o_time: 2560,
+                o_pace: 760,
+                d_distance: 0,
+                d_time: 0.0522992,
+                d_pace_mean: 0.0174331,
+                d_pace_std: 0.0131288,
+                d_pace_var: 0.000172364,
+                r_distance: 7014.2,
+                r_speed: 11.6189,
+                r_time: 2506.13,
+                r_pace: 324.803,
+                p_running: 0.666667,
+                p_walking: 0,
+                p_unknown: 0.333333,
+                p_welldone: 0,
+                p_has_objective: 0.666667,
+                age: 28,
+                height: 168,
+                weight: 72,
+                gender: 1,
+                bmi: 25.5102,
+                weight_situation: 5,
+                calories: 455
+            },
+            {
+                o_distance: 16200,
+                o_time: 7533,
+                o_pace: 4860,
+                d_distance: -0.045075,
+                d_time: -0.248738,
+                d_pace_mean: 0.00988729,
+                d_pace_std: 0.0593212,
+                d_pace_var: 0.003519,
+                r_distance: 18381.4,
+                r_speed: 7.42518,
+                r_time: 7599,
+                r_pace: 526.287,
+                p_running: 0.6,
+                p_walking: 0.3,
+                p_unknown: 0.1,
+                p_welldone: 0.222222,
+                p_has_objective: 0.9,
+                age: 41,
+                height: 177,
+                weight: 78,
+                gender: 1,
+                bmi: 24.8971,
+                weight_situation: 4,
+                calories: 424
+            }
+        ]
+    ];
+
+    var workoutsDescription = [
+        "This workout starts with 3 warm-up walking activites of 300 seconds. Then it alternates a running activity with target distance of 50 meters and a walking activity with target time of 80 seconds for 13 repetitions. It finishes with warm-down made of a walking activity of 300 seconds and a rest activity of 300 seconds.",
+        "This workout starts with 2 running activities of 600 and 480 seconds and 120 seconds of rest. Then we have 30 running activities with a target time of 60 seconds . It finishes with warm-down made of a resting activity of 120 seconds.",
+        "This workout starts with a walking activity of 480 seconds and 120 seconds of rest. Then we have 2 repetitions of 360 seconds of running followed by 120 seconds of walking. After that we have 15 repetitions of 60 seconds of running followed by 60 seconds of walking. It finishes with 180 seconds of rest.",
+        "This workout starts with a walking activity of 480 seconds and 120 seconds of rest. Then we have 4 repetitions of this set of activities: 120 seconds of walk, 60 seconds of walk and 30 seconds of rest, all aof them for 3 times followed by another 30 seconds rest.",
+        "This workout starts with a walking activity of 600 seconds and 120 seconds of rest. Then we have 4 repetitions of this set of activities: 150 seconds of walk, 60 seconds of walk and 30 seconds of rest, all of them for 3 times followed by another 30 seconds rest.",
+        "This workout starts with a walking activity of 600 seconds and 120 seconds of rest. Then we have 5 repetitions of this set of activities: 300 seconds of walk, 180 seconds of walk and 60 seconds of rest. At the end of the 3rd and the 5th repetition, we have 120 seconds of rest.",
+        "This workout starts with a walking activity of 720 seconds and 240 seconds of rest. Then we have 5 repetitions of 360 seconds of running followed by 120 seconds of walking. It finishes with 180 seconds of rest.",
+        "This workout starts with a walking activity of 600 seconds and 180 seconds of rest. Then we have 6 repetitions of 240 seconds of running followed by 240 seconds of walking. It finishes with 180 seconds of rest.",
+        "This workout starts with a walking activity of 480 seconds and 180 seconds of rest. Then we have 6 repetitions of 300 seconds of running followed by 240 seconds of walking. It finishes with 180 seconds of rest.",
+        "This workout starts with a running activity of 600 seconds. Then we have 4 repetitions of 120 seconds of running followed by 120 seconds of walking. It finishes with 540 seconds of running.",
+        "This workout starts with a walking activity of 480 seconds and 120 seconds of rest. Then we have 3 repetitions of 90 seconds of walking followed by 30 seconds of walking, followed by 4 repetitions of 120 seconds of walking followed by 60 seconds of walking. It finishes with 240 seconds of rest.",
+        "This workout starts with a walking activity of 600 seconds and 120 seconds of rest. Then we have 2 repetitions of 279 seconds of walking followed by 120 seconds of walking, followed by a section with 280 + 120 + 280 seconds of walking, which continues with a rest of 120 seconds. Then we have 16 repetitions of 60 seconds of walking. It finishes with 120 seconds of rest.",
+        "This workout consists of 2720 seconds of running",
+        "This workout consists of 400 seconds of running followed by 2160 of running",
+        "This workout starts with a walking activity of 60 seconds and 60 seconds of running. Then we have a section with 30 seconds of walking, 120 seconds of running and 30 seconds of walking, followed by a section with 315 + 1260 + 312 seconds of running. It finishes with 324 seconds of running."
+    ];
+
+    /*
+    var workoutSummary = [
+        "Time type objective activities: 54,5% <br>" +
+        "Distance type objective activities: 36,4% <br>" +
+        "Distance-Time(Pace) type objective activities: 9,1%",
+
+        "Time type objective activities: 100% <br>" +
+        "Distance type objective activities: 0% <br>" +
+        "Distance-Time(Pace) type objective activities: 0%",
+
+        "Time type objective activities: 100% <br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 0%",
+
+        "Time type objective activities: 100%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 0%",
+
+        "Time type objective activities: 100%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 0%",
+
+        "Time type objective activities: 100%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 0%",
+
+        "Time type objective activities: 100%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 0%",
+
+        "Time type objective activities: 100%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 0%",
+
+        "Time type objective activities: 100%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 0%",
+
+        "Time type objective activities: 40%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 60%",
+
+        "Time type objective activities: 100%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 0%",
+
+        "Time type objective activities: 85.1%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 14.9%",
+
+        "Time type objective activities: 0%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 100%",
+
+        "Time type objective activities: 0%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 100%",
+
+        "Time type objective activities: 56%<br>" +
+        "Distance type objective activities: 0%<br>" +
+        "Distance-Time(Pace) type objective activities: 44%"
+    ];
+     */
+
+    var workoutSummary = [
+        "Time: 54,5% <br>" +
+        "Distance: 36,4% <br>" +
+        "Distance-Time(Pace): 9,1%",
+
+        "Time: 100% <br>" +
+        "Distance: 0% <br>" +
+        "Distance-Time(Pace): 0%",
+
+        "Time: 100% <br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 0%",
+
+        "Time: 100%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 0%",
+
+        "Time: 100%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 0%",
+
+        "Time: 100%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 0%",
+
+        "Time: 100%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 0%",
+
+        "Time: 100%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 0%",
+
+        "Time: 100%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 0%",
+
+        "Time: 40%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 60%",
+
+        "Time: 100%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 0%",
+
+        "Time: 85.1%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 14.9%",
+
+        "Time: 0%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 100%",
+
+        "Time: 0%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 100%",
+
+        "Time: 56%<br>" +
+        "Distance: 0%<br>" +
+        "Distance-Time(Pace): 44%"
+    ];
+
+    var workout_unit = {
+        o_distance: "m",
+        p_unknown: "%",
+        p_walking: "%",
+        p_running: "%",
+        r_time: "s",
+        r_speed: "m/s",
+        r_distance: "m",
+        r_pace: "hh:mm:ss/km", //??
+        o_pace: "hh:mm:ss/km", //??
+        o_time: "s",
+        p_welldone: "%",
+        weight_situation: "", //?
+        age: -0.0842126,
+        height: "cm",
+        weight: "kg",
+        gender: 0,
+        bmi: 19.9792,
+        calories: -0.126402,
+        p_has_objective: 0.0541757,
+        d_pace_std: -0.000662894,
+        d_pace_mean: 0.000461261,
+        d_time: "%",
+        d_distance: "%",
+        d_pace_var: "%"
+    };
+
+
+    var workoutOrdinato = {
+        o_distance: -0.057846,
+        p_unknown: -0.0541757,
+        p_walking: 0.114791,
+        p_running: -0.392162,
+        r_time: 0.00832845,
+        r_speed: -0.00843242,
+        r_distance: 0.112499,
+        r_pace: -0.00181375,
+        o_pace: -0.0248329,
+        o_time: 0.013441,
+        p_welldone: 0.505893,
+        weight_situation: 4,
+        age: -0.0842126,
+        height: -0.26717,
+        weight: -0.286194,
+        gender: 0,
+        bmi: 19.9792,
+        calories: -0.126402,
+        p_has_objective: 0.0541757,
+        d_pace_std: -0.000662894,
+        d_pace_mean: 0.000461261,
+        d_time: -0.0103111,
+        d_distance: -0.0126414,
+        d_pace_var: -0.000636324
+    };
+    //Valori da usare per normalizzare il dato prima di valutarlo col modello
+    var norm_values = {
+        o_distance: [14397.797807903085, 0.0, 360000.0],
+        o_time: [12197.15979232766, 0.0, 306000.0],
+        o_pace: [4842.673781367176, 0.0, 292000.0],
+        d_distance: [5.204578696471742, -7.664783423566668, 623.4751836316286],
+        d_time: [9.775416433383006, -313.0950682261208, 661.2111999999998],
+        d_pace_mean: [-0.11974895486871891, -270.928316178069, 0.9224168353544497],
+        d_pace_std: [0.8155474911924301, 0.0, 1715.0849130916565],
+        d_pace_var: [933.0957965108744, 0.0, 2941516.259114615],
+        //r_distance: [19331.864616222036, 50.36548501253127, 42993.1843163427],
+        r_distance: [19331.864616222036, 50.36548501253127, 42993.1843163427],
+        r_speed: [6.219522020650246, 0.00040852929759351334, 261.9957502588009],
+        r_time: [10840.839752523778, 15.0, 638462.328],
+        r_pace: [20578.58593479081, 1.3357104794362857, 16600276.82684693],
+        p_running: [0.3655546677450891, 0.0, 0.9705882352941176],
+        p_walking: [0.3327347733275077, 0.0, 0.9411764705882353],
+        p_unknown: [0.1347660468354144, 0.010526315789473684, 0.5],
+        p_welldone: [0.5668444509898433, 0.0, 1.0],
+        p_has_objective: [0.8652339531645894, 0.5, 0.9894736842105263],
+        age: [42.62244014998558, 17.0, 71.0],
+        height: [168.08710700894144, 147.0, 198.0],
+        weight: [68.91892125757134, 42.0, 130.0],
+        calories: [356.7678107874243, 0.0, 1653.0]
+    };
+    //Formula per la normalizzazione
+    //self.data[column_name] = self.data[column_name].apply(lambda x: (x - mean_col) / (max_col - min_col))
+
+    function normalize(x, mean, min, max) {
+        return (x - mean) / (max - min)
+    }
+
+
+    function offset(el) {
+        var rect = el.getBoundingClientRect(),
+            scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        return {top: rect.top + scrollTop, left: rect.left + scrollLeft}
+    }
+
+    function secondsToHMS(s) {
+        //console.log(s);
+        //s = s.toFixed(2);
+        var h = Math.floor(s / 3600); // Hours
+        s -= h * 3600;
+        var m = Math.floor(s / 60); // Minutes
+        s -= m * 60;
+        //console.log(s);
+        s = Math.round(s);
+        //console.log(s);
+        return h + ":" + (m < 10 ? '0' + m : m) + ":" + (s < 10 ? '0' + s : s); //zero padding on minutes and seconds
+    }
+
+
+    // gestione info voti
+    function modifyOffset() {
+        var el, newPoint, newPlace, offset, siblings, k;
+        width = this.offsetWidth;
+        //console.log(this)
+        newPoint = (this.value - this.getAttribute("min")) / (this.getAttribute("max") - this.getAttribute("min"));
+        offset = -1;
+        if (newPoint < 0) {
+            newPlace = 0;
+        } else if (newPoint > 1) {
+            newPlace = width;
+        } else {
+            newPlace = width * newPoint + offset;
+            offset -= newPoint;
+        }
+        siblings = this.parentNode.childNodes;
+        //console.log(siblings[1].nodeName);
+        for (var i = 0; i < siblings.length; i++) {
+            sibling = siblings[i];
+            if (sibling.id === this.id) {
+                k = true;
+            }
+            if ((k === true) && (sibling.nodeName === "P")) {
+                outputTag = sibling;
+            }
+        }
+
+        outputTag.style.left = newPlace + "px";
+        outputTag.style.marginLeft = (offset * 6) + "%";
+        //outputTag.innerHTML = this.value;
+    }
+
+
+    function modifyInputs() {
+
+        //var inputs = document.getElementsByTagName("input");
+
+        let inputs = [];
+
+        for (let j = 0; j < workoutKeys.length; j++) {
+            let left_limit = workoutKeys[j] + "_limit_sx";
+            let left_elem = document.getElementById(left_limit);
+            if (left_elem !== null)
+                inputs.push(left_elem);
+
+            let right_limit = workoutKeys[j] + "_limit_dx";
+            let right_elem = document.getElementById(right_limit);
+            if (right_elem !== null)
+                inputs.push(right_elem);
+
+        }
+
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].getAttribute("type") === "range") {
+                inputs[i].onchange = modifyOffset;
+
+                // the following taken from http://stackoverflow.com/questions/2856513/trigger-onchange-event-manually
+                if ("fireEvent" in inputs[i]) {
+                    inputs[i].fireEvent("onchange");
+                } else {
+                    var evt = document.createEvent("HTMLEvents");
+                    evt.initEvent("change", false, true);
+                    inputs[i].dispatchEvent(evt);
+                }
+            }
+        }
+    }
+
+    //modifyInputs();
+
+
+    var numFeatures;
+
+    function draw_limits(fts) {
+
+        let feature_number = numFeatures; // da reperire
+        // aggiorno e rimuovo i vecchi limiti
+        for (let i = 0; i < feature_number; i++) {
+            let id_sx = "#limit_sx_" + i;
+            let id_dx = "#limit_dx_" + i;
+            let id_extra = "#extra_" + i;
+            if ($(id_sx).length) {
+                $(id_sx).remove();
+            }
+            if ($(id_dx).length) {
+                $(id_dx).remove();
+            }
+            if ($(id_extra).length) {
+                $(id_extra).remove();
+            }
+
+        }
+
+        for (let k = 0; k < feature_number; k++) {
+            //console.log(fts[workoutKeys[k]]);
+            // creo div slider
+            var div_slider_sx = document.createElement("div");
+            div_slider_sx.id = "limit_sx_" + k;
+            div_slider_sx.className = "range-lim range-info";
+
+            var div_slider_dx = document.createElement("div");
+            div_slider_dx.id = "limit_dx_" + k;
+            div_slider_dx.className = "range-lim range-warning";
+
+            // se ho l'estremo sx
+            if (fts[workoutKeys[k]][0][0] !== -1) {
+                // creo slider
+                var input_slider = document.createElement("input");
+                input_slider.id = workoutKeys[k] + "_limit_sx";
+                input_slider.type = "range";
+                input_slider.name = "range";
+
+                /*** ***/
+                // valori min e max anche suglki input nascosti
+                //var featureValue;
+                if (workoutKeys[k] === "d_distance" || workoutKeys[k] === "d_time" || workoutKeys[k] === "d_pace_mean" ||
+                    workoutKeys[k] === "d_pace_std" || workoutKeys[k] === "d_pace_var" ||
+                    workoutKeys[k] === "p_welldone" || workoutKeys[k] === "p_walking" || workoutKeys[k] === "p_running" ||
+                    workoutKeys[k] === "p_unknown" || workoutKeys[k] === "p_has_objective") {
+                    input_slider.min = (norm_values[workoutKeys[k]][1] * 100.0).toFixed(2);
+                    input_slider.max = (norm_values[workoutKeys[k]][2] * 100.0).toFixed(2);
+                    input_slider.step = 0.001;
+                    //featureValue = workout[workoutKeys[k]] * 100.0;
+                } else {
+                    if (workoutKeys[k] === "bmi" || workoutKeys[k] === "weight_situation" || workoutKeys[k] === "gender") {
+                        input_slider.min = 1;
+                        input_slider.max = 5;
+                        //featureValue = workout[workoutKeys[k]];
+                    } else {
+                        //featureValue = fts[workoutKeys[k]][0][0];;
+                        input_slider.min = norm_values[workoutKeys[k]][1].toFixed(2);
+                        if (workoutKeys[k] === "r_pace" || workoutKeys[k] === "o_pace") {
+                            input_slider.max = 8000;
+                        } else {
+                            input_slider.max = norm_values[workoutKeys[k]][2].toFixed(2);
+                        }
+                        if (workoutKeys[k] === "r_speed" || workoutKeys[k] === "r_distance" || workoutKeys[k] === "r_pace" || workoutKeys[k] === "bmi") {
+                            input_slider.step = 0.01;
+                        }
+                    }
+                }
+
+                /*** ***/
+
+
+                let featureValue = fts[workoutKeys[k]][0][0];
+                let ft_val = featureValue.toFixed(2);
+                var output_slider = document.createElement("output");
+                output_slider.id = input_slider.id + "_out";
+                let curr_value = document.getElementById("outrange" + k);
+
+                if (workoutKeys[k] === 'r_pace' || workoutKeys[k] === 'o_pace' || workoutKeys[k] === 'r_time' || workoutKeys[k] === 'o_time') {
+                    let sec = secondsToHMS(curr_value.innerHTML);
+                    output_slider.innerHTML = sec;
+                    let original_value = document.createElement('p');
+                    original_value.id = "original_sx" + k;
+                    original_value.innerHTML = ft_val;
+                    original_value.className = 'original_value';
+                    input_slider.setAttribute("value", featureValue);
+                    document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=secondsToHMS(value); " + "original" + k + ".innerHTML=value; " + output_slider.id + ".value=secondsToHMS(value);");
+                    div_slider_sx.append(input_slider);
+                    div_slider_sx.append(output_slider);
+                    div_slider_sx.append(original_value);
+
+                } else {
+                    output_slider.innerHTML = curr_value.innerHTML;
+                    input_slider.setAttribute("value", featureValue);
+                    document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value;");
+                    div_slider_sx.append(input_slider);
+                    div_slider_sx.append(output_slider);
+                }
+
+                let container = document.getElementById(workoutKeys[k]);
+
+
+                //div_slider_sx.append(input_slider);
+                //div_slider_sx.append(output_slider);
+                container.append(div_slider_sx);
+                div_slider_sx.classList.add("disable-div");
+                document.getElementById(output_slider.id).style.visibility = "hidden";
+
+                let out_info = document.createElement("p");
+                out_info.id = output_slider.id + "_info";
+                out_info.className = "mark-info-sx";
+                out_info.innerHTML = fts[workoutKeys[k]][0][1];
+                div_slider_sx.append(out_info);
+            }
+
+            // se ho l'estremo dx
+            if (fts[workoutKeys[k]][1][0] !== -1) {
+                // creo slider
+                var input_slider = document.createElement("input");
+                input_slider.id = workoutKeys[k] + "_limit_dx";
+                input_slider.type = "range";
+                input_slider.name = "range";
+
+                /*** ***/
+                // valori min e max anche suglki input nascosti
+                //var featureValue;
+                if (workoutKeys[k] === "d_distance" || workoutKeys[k] === "d_time" || workoutKeys[k] === "d_pace_mean" ||
+                    workoutKeys[k] === "d_pace_std" || workoutKeys[k] === "d_pace_var" ||
+                    workoutKeys[k] === "p_welldone" || workoutKeys[k] === "p_walking" || workoutKeys[k] === "p_running" ||
+                    workoutKeys[k] === "p_unknown" || workoutKeys[k] === "p_has_objective") {
+                    input_slider.min = (norm_values[workoutKeys[k]][1] * 100.0).toFixed(2);
+                    input_slider.max = (norm_values[workoutKeys[k]][2] * 100.0).toFixed(2);
+                    input_slider.step = 0.001;
+                    //featureValue = workout[workoutKeys[k]] * 100.0;
+                } else {
+                    if (workoutKeys[k] === "bmi" || workoutKeys[k] === "weight_situation" || workoutKeys[k] === "gender") {
+                        input_slider.min = 1;
+                        input_slider.max = 5;
+                        //featureValue = workout[workoutKeys[k]];
+                    } else {
+                        //featureValue = fts[workoutKeys[k]][0][0];;
+                        input_slider.min = norm_values[workoutKeys[k]][1].toFixed(2);
+                        if (workoutKeys[k] === "r_pace" || workoutKeys[k] === "o_pace") {
+                            input_slider.max = 8000;
+                        } else {
+                            input_slider.max = norm_values[workoutKeys[k]][2].toFixed(2);
+                        }
+                        if (workoutKeys[k] === "r_speed" || workoutKeys[k] === "r_distance" || workoutKeys[k] === "r_pace" || workoutKeys[k] === "bmi") {
+                            input_slider.step = 0.01;
+                        }
+                    }
+                }
+
+                /*** ***/
+
+
+
+                let featureValue = fts[workoutKeys[k]][1][0];
+                let ft_val = featureValue.toFixed(2);
+                var output_slider = document.createElement("output");
+                output_slider.id = input_slider.id + "_out";
+                let curr_value = document.getElementById("outrange" + k);
+
+                if (workoutKeys[k] === 'r_pace' || workoutKeys[k] === 'o_pace' || workoutKeys[k] === 'r_time' || workoutKeys[k] === 'o_time') {
+                    let sec = secondsToHMS(curr_value.innerHTML);
+                    output_slider.innerHTML = sec;
+                    let original_value = document.createElement('p');
+                    original_value.id = "original_dx" + k;
+                    original_value.innerHTML = ft_val;
+                    original_value.className = 'original_value';
+                    input_slider.setAttribute("value", featureValue);
+                    document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=secondsToHMS(value); " + "original" + k + ".innerHTML=value; " + output_slider.id + ".value=secondsToHMS(value);");
+                    div_slider_dx.append(input_slider);
+                    div_slider_dx.append(output_slider);
+                    div_slider_dx.append(original_value);
+
+                } else {
+                    output_slider.innerHTML = curr_value.innerHTML;
+                    input_slider.setAttribute("value", featureValue);
+                    document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value;");
+                    div_slider_dx.append(input_slider);
+                    div_slider_dx.append(output_slider);
+                }
+
+
+                input_slider.setAttribute("value", featureValue);
+
+                // float limit
+                //output_slider.innerHTML = featureValue.toFixed(2);
+                let container = document.getElementById(workoutKeys[k]);
+
+                //div_slider_dx.append(input_slider);
+                //div_slider_dx.append(output_slider);
+                container.append(div_slider_dx);
+                div_slider_dx.classList.add("disable-div");
+                document.getElementById(output_slider.id).style.visibility = "hidden";
+
+                // aggiunta voto
+                // aggiunta mark sotto input
+                /*input_slider.setAttribute('data-toggle', 'tooltip');
+                input_slider.setAttribute('data-placement', 'bottom');
+                input_slider.setAttribute('title', fts[workoutKeys[k]][1][1]);
+                let slider_id = "#" + input_slider.id;
+                $(slider_id).css({'pointer-events': 'none'}).tooltip('show');*/
+                let out_info = document.createElement("p");
+                out_info.id = output_slider.id + "_info";
+                out_info.className = "mark-info-dx";
+                out_info.innerHTML = fts[workoutKeys[k]][1][1];
+                div_slider_dx.append(out_info);
+            }
+
+            if (fts[workoutKeys[k]][0][0] === -1 && fts[workoutKeys[k]][1][0] === -1) {
+                let featureValue = fts[workoutKeys[k]][1][0];
+                var output_slider = document.createElement("output");
+                output_slider.id = "extra_out_" + workoutKeys[k];
+
+                if (workoutKeys[k] === 'r_pace' || workoutKeys[k] === 'o_pace' || workoutKeys[k] === 'r_time' || workoutKeys[k] === 'o_time') {
+                    let sec = secondsToHMS(featureValue.toFixed(2));
+                    output_slider.innerHTML = sec;
+                    let original_value = document.createElement('p');
+                    original_value.id = "original_extra" + k;
+                    original_value.innerHTML = featureValue;
+                    original_value.className = 'original_value';
+                    document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=secondsToHMS(value); " + "original" + k + ".innerHTML=value; " + output_slider.id + ".value=secondsToHMS(value);");
+                    div_slider_dx.append(output_slider);
+                    div_slider_dx.append(original_value);
+
+                } else {
+                    output_slider.innerHTML = featureValue.toFixed(2);
+                    document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value;");
+                    div_slider_dx.append(output_slider);
+                }
+
+
+                // float limit
+                //document.getElementById("range" + k).setAttribute("onchange", "outrange" + k + ".value=value; " + output_slider.id + ".value=value");
+                let container = document.getElementById(workoutKeys[k]);
+
+                div_slider_dx.append(output_slider);
+                div_slider_dx.id = "extra_" + k;
+                container.append(div_slider_dx);
+                div_slider_dx.classList.add("disable-div");
+                document.getElementById(output_slider.id).style.visibility = "hidden";
+                div_slider_dx.style.visibility = "hidden";
+            }
+
+            if (fts[workoutKeys[k]][0][0] !== -1 && fts[workoutKeys[k]][1][0] !== -1) {
+                // per averli alla stessa altezza
+                //document.getElementById(input_slider.id).style.marginTop = '-55.5px';
+                document.getElementById(div_slider_dx.id).style.marginTop = '-33.5px';
+            }
+        }
+
+        /*
+        let a = document.createElement("p");
+        a.id = "testo";
+        a.className = "connected";
+        a.innerHTML = '5';
+        let s = document.getElementById('model_type');
+        s.append(a);
+
+        $('#testo').positionOn($('#limit_dx_0'))*/
+
+    }
+
+    var randomWorkouts = [];
+    var randomFeatures = [];
+    var randomModels = [];
+    for (var j = 0; j < 10; j++) {
+        var n = Math.floor(Math.random() * 15);
+        while (randomWorkouts.includes(n)) {
+            n = Math.floor(Math.random() * 15);
+        }
+
+        randomFeatures.push((Math.floor(Math.random() * 3) + 1) * 4);
+        randomModels.push(Math.floor(Math.random() * 3) + 1);
+        randomWorkouts.push(n)
+    }
+
+    var workout;
+    var modelType;
+    var workoutKeys = Object.keys(workoutOrdinato);
+    var predictions = {};
+    var userResults = [];
+
+    function createFeatureList() {
+        var featureList = [];
+        for (var feature = 0; feature < 24; feature++) {
+            var element = document.getElementById("outrange" + feature);
+            var value;
+
+            /*if (element !== null) {
+                if (workoutKeys[feature] == "bmi" || workoutKeys[feature] == "weight_situation" || workoutKeys[feature] == "gender") {
+                    value = parseFloat(element.value)
+                } else {
+                    if (workoutKeys[feature] == "d_distance" || workoutKeys[feature] == "d_time" || workoutKeys[feature] == "d_pace_mean" ||
+                        workoutKeys[feature] == "d_pace_std" || workoutKeys[feature] == "d_pace_var" ||
+                        workoutKeys[feature] == "p_welldone" || workoutKeys[feature] == "p_walking" || workoutKeys[feature] == "p_running" ||
+                        workoutKeys[feature] == "p_unknown" || workoutKeys[feature] == "p_has_objective") {
+                        value = normalize(parseFloat(element.value) / 100.0, norm_values[workoutKeys[feature]][0], norm_values[workoutKeys[feature]][1], norm_values[workoutKeys[feature]][2])
+                    } else {
+                        value = normalize(parseFloat(element.value), norm_values[workoutKeys[feature]][0], norm_values[workoutKeys[feature]][1], norm_values[workoutKeys[feature]][2])
+                    }
+                }
+                featureList.push(value)
+            } else {
+                if (workoutKeys[feature] == "bmi" || workoutKeys[feature] == "weight_situation" || workoutKeys[feature] == "gender") {
+                    value = parseFloat(workout[workoutKeys[feature]])
+                } else {
+                    value = normalize(parseFloat(workout[workoutKeys[feature]]), norm_values[workoutKeys[feature]][0], norm_values[workoutKeys[feature]][1], norm_values[workoutKeys[feature]][2])
+                }
+                featureList.push(value)
+            }*/
+            if (element !== null) {
+
+                if (workoutKeys[feature] === 'o_pace' || workoutKeys[feature] === 'r_pace' || workoutKeys[feature] === 'o_time' || workoutKeys[feature] === 'r_time') {
+                    let orig = document.getElementById("original" + feature);
+                    value = parseFloat(orig.innerHTML);
+                } else if (workoutKeys[feature] == "bmi" || workoutKeys[feature] == "weight_situation" || workoutKeys[feature] == "gender") {
+                    value = parseFloat(element.value)
+                } else {
+                    if (workoutKeys[feature] == "d_distance" || workoutKeys[feature] == "d_time" || workoutKeys[feature] == "d_pace_mean" ||
+                        workoutKeys[feature] == "d_pace_std" || workoutKeys[feature] == "d_pace_var" ||
+                        workoutKeys[feature] == "p_welldone" || workoutKeys[feature] == "p_walking" || workoutKeys[feature] == "p_running" ||
+                        workoutKeys[feature] == "p_unknown" || workoutKeys[feature] == "p_has_objective") {
+                        value = parseFloat(element.value) / 100.0
+                    } else {
+                        value = parseFloat(element.value)
+                    }
+                }
+                featureList.push(value)
+            } else {
+                if (workoutKeys[feature] == "bmi" || workoutKeys[feature] == "weight_situation" || workoutKeys[feature] == "gender") {
+                    value = parseFloat(workout[workoutKeys[feature]])
+                } else {
+                    value = parseFloat(workout[workoutKeys[feature]])
+                }
+                featureList.push(value)
+            }
+        }
+        return featureList
+    }
+
+    function createSortedNormValues() {
+        var sortedNormValues = [];
+        workoutKeys.forEach(function (featureName) {
+            if (norm_values[featureName] !== undefined) {
+                sortedNormValues.push(norm_values[featureName]);
+            } else {
+                sortedNormValues.push([-1, -1, -1])
+            }
+        });
+        return sortedNormValues;
+    }
+
+    $(document).ready(function () {
+        $('#evaluate_button').on('click', function () {
+            var featureList = createFeatureList();
+            var sortedNormValues = createSortedNormValues();
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    features: featureList,
+                    modelType: modelType,
+                    normValues: sortedNormValues
+                },
+                success: function (response) {
+                    //First is mark
+                    var data = JSON.parse(response);
+                    let element = document.getElementById("mark");
+                    element.innerHTML = data[0];
+                    for (var predictionFeature = 0; predictionFeature < 12; predictionFeature++) {
+                        var predictionValues = [];
+                        predictionValues.push([data[(predictionFeature * 4) + 1], data[(predictionFeature * 4) + 2]]);
+                        predictionValues.push([data[(predictionFeature * 4) + 3], data[(predictionFeature * 4) + 4]]);
+                        predictions[workoutKeys[predictionFeature]] = predictionValues;
+                    }
+
+                    draw_limits(predictions);
+                    modifyInputs();
+                },
+                error: function () {
+                    console.log("Errore richiesta valutazione")
+                }
+            })
+        });
+
+        document.getElementById("evaluate_button").click();
+    });
+
+    function reverseNormalize(x, mean, min, max) {
+        return ((max - min) * x) + mean;
+    }
+
+
+    var features_meaning = {
+        r_speed: 'Average speed of all the activities of the wourkout',
+        calories: 'Burnt calories during the workout',
+        r_distance: 'Sum of the distance of all activities of the workout',
+        d_distance: 'Gap between target distance and distance traveled, expressed in percentage',
+        p_welldone: 'Portion of workout with gap between target value and performed value equal to zero, expressed in percentage',
+        o_time: 'Sum of the target time all activities with time as target type',
+        r_time: 'Sum of the time of all activities of the workout',
+        p_walking: 'Walking portion in the workout, expressed in percentage',
+        height: 'User height',
+        o_distance: 'Sum of the target distance all activities with distance as target type',
+        weight: 'User weight',
+        bmi: 'User BMI',
+        age: 'User age',
+        p_running: 'Running portion in the workout, expressed in percentage',
+        r_pace: 'Average pace of all activities of the workout',
+        p_unknown: 'Unknown portion in the workout, expressed in percentage',
+        // inserire anche queste?
+        p_has_objective: 0.833333,
+        d_time: 0.00695535,
+        d_pace_mean: 0.00115923,
+        o_pace: 'Average target pace of all activities with pace as target type',
+        d_pace_std: 0.0302507,
+        weight_situation: 'Weight category of the user:\n' +
+            '1 if bmi < 16' + ' <br> ' +
+            '2 if 17 > bmi >= 16' + ' <br> ' +
+            '3 if 18.5 > bmi >= 17' + ' <br> ' +
+            '4 if 25 > bmi >= 18.5' + ' <br> ' +
+            '5 if 30 > bmi >= 25' + ' <br> ',/* +
+        '6 if 35 > bmi >= 30' + ' <br> ' +
+        '7 if 40 > bmi >= 35' + ' <br> ' +
+        '8  if bmi >= 40',*/
+        gender: 1,
+        d_pace_var: 0.000915104
+    };
+
+    var features_readable_names = {
+        r_speed: 'Average Speed',
+        calories: 'Calories',
+        r_distance: 'Distance Covered',
+        d_distance: 'Distance Gap',
+        p_welldone: 'Successful Percentage',
+        o_time: 'Target Time',
+        r_time: 'Total time',
+        p_walking: 'Walking Percentage',
+        height: 'User Heigth',
+        o_distance: 'Target Distance',
+        weight: 'User Weight',
+        bmi: 'User BMI',
+        age: 'User Age',
+        p_running: 'Running Percentage',
+        r_pace: 'Average Pace',
+        p_unknown: 'Unknown Percentage',
+        // inserire anche queste?
+        p_has_objective: 0.833333,
+        d_time: 0.00695535,
+        d_pace_mean: 0.00115923,
+        o_pace: 'Target Pace',
+        d_pace_std: 0.0302507,
+        weight_situation: 'Weight Category',
+        gender: 1,
+        d_pace_var: 0.000915104
+    };
+
+
+    function generateHTML(workoutArrayIndex) {
+        var currentMark = Math.trunc(randomWorkouts[workoutArrayIndex] / 3);
+        var currentInstance = randomWorkouts[workoutArrayIndex] % 3;
+        numFeatures = randomFeatures[workoutArrayIndex];
+
+        // attivazione tooltips
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        modelType = randomModels[workoutArrayIndex];
+        workout = workouts[currentMark][currentInstance];
+        for (var i = 0; i < numFeatures; i++) {
+            var col_border = document.createElement("div");
+            col_border.id = workoutKeys[i];
+            col_border.className = "col border-hi-feature";
+            col_border.style.marginBottom = "10px";
+            var p_feature = document.createElement("p");
+            p_feature.className = "feature";
+            //p_feature.innerText = features_readable_names[workoutKeys[i]];
+            if (workoutKeys[i] === "weight_situation")
+                p_feature.innerText = features_readable_names[workoutKeys[i]];
+            else
+                p_feature.innerText = features_readable_names[workoutKeys[i]] + " (" + workout_unit[workoutKeys[i]] + ")";
+            var tooltipI = document.createElement("i");
+            tooltipI.className = "fa fa-info-circle";
+            tooltipI.style.fontSize = "18px";
+            tooltipI.style.color = "#009bde";
+            tooltipI.style.marginLeft = "5px";
+            tooltipI.setAttribute("data-toggle", "tooltip");
+            tooltipI.title = features_meaning[workoutKeys[i]];
+            // per avere l'a capo dopo ogni categoria
+            tooltipI.setAttribute('data-html', 'true');
+            p_feature.append(tooltipI);
+            var div_slider = document.createElement("div");
+            var input_slider = document.createElement("input");
+            input_slider.id = "range" + i;
+            input_slider.type = "range";
+            input_slider.name = "range";
+
+
+            var featureValue;
+            if (workoutKeys[i] == "d_distance" || workoutKeys[i] == "d_time" || workoutKeys[i] == "d_pace_mean" ||
+                workoutKeys[i] == "d_pace_std" || workoutKeys[i] == "d_pace_var" ||
+                workoutKeys[i] == "p_welldone" || workoutKeys[i] == "p_walking" || workoutKeys[i] == "p_running" ||
+                workoutKeys[i] == "p_unknown" || workoutKeys[i] == "p_has_objective") {
+                input_slider.min = (norm_values[workoutKeys[i]][1] * 100.0).toFixed(2);
+                input_slider.max = (norm_values[workoutKeys[i]][2] * 100.0).toFixed(2);
+                input_slider.step = 0.001;
+                featureValue = workout[workoutKeys[i]] * 100.0;
+            } else {
+                if (workoutKeys[i] == "bmi" || workoutKeys[i] == "weight_situation" || workoutKeys[i] == "gender") {
+                    input_slider.min = 1;
+                    input_slider.max = 5;
+                    featureValue = workout[workoutKeys[i]];
+                } else {
+                    featureValue = workout[workoutKeys[i]];
+                    input_slider.min = norm_values[workoutKeys[i]][1].toFixed(2);
+                    if (workoutKeys[i] === "r_pace" || workoutKeys[i] === "o_pace") {
+                        input_slider.max = 8000;
+                    } else {
+                        input_slider.max = norm_values[workoutKeys[i]][2].toFixed(2);
+                    }
+                    if (workoutKeys[i] == "r_speed" || workoutKeys[i] == "r_distance" || workoutKeys[i] == "r_pace" || workoutKeys[i] == "bmi") {
+                        input_slider.step = 0.01;
+                    }
+                }
+            }
+
+
+            var container;
+            if (i % 2 == 0) {
+                container = document.getElementById('f1');
+                div_slider.className = "range range-primary";
+            } else {
+                container = document.getElementById('f2');
+                div_slider.className = "range range-primary";
+            }
+
+            var output_slider = document.createElement("output");
+            output_slider.id = "outrange" + i;
+            //output_slider.innerHTML = workout[workoutKeys[i]];
+            // float limit
+            let ft_val = featureValue.toFixed(2);
+            if (workoutKeys[i] === 'r_pace' || workoutKeys[i] === 'o_pace' || workoutKeys[i] === 'r_time' || workoutKeys[i] === 'o_time') {
+                let sec = secondsToHMS(ft_val);
+                output_slider.innerHTML = sec;
+                let original_value = document.createElement('p');
+                original_value.id = "original" + i;
+                original_value.innerHTML = ft_val;
+                original_value.className = 'original_value';
+                input_slider.setAttribute("value", featureValue);
+                input_slider.setAttribute("onchange", "outrange" + i + ".value=secondsToHMS(value); " + "original" + i + ".innerHTML=value");
+                div_slider.append(input_slider);
+                div_slider.append(output_slider);
+                div_slider.append(original_value);
+                //console.log(input_slider.onchange)
+
+            } else {
+                output_slider.innerHTML = ft_val;
+                input_slider.setAttribute("value", featureValue);
+                input_slider.setAttribute("onchange", "outrange" + i + ".value=value");
+                div_slider.append(input_slider);
+                div_slider.append(output_slider);
+            }
+
+
+            col_border.append(p_feature);
+            col_border.append(div_slider);
+
+            container.append(col_border);
+            var button = document.getElementById("next_button");
+
+            document.getElementById("current_workout").innerHTML = "Workout " + parseInt((workoutArrayIndex % 5) + 1);
+
+            // descrizione workout
+            document.getElementById("workout_description").innerHTML = workoutsDescription[randomWorkouts[workoutArrayIndex]];
+
+            // percentuale obiettivi workout
+            let wk_percent = document.getElementById("workout_objective");
+
+            wk_percent.setAttribute("data-html", "true");
+            wk_percent.innerHTML = workoutSummary[randomWorkouts[workoutArrayIndex]];
+
+            document.getElementById("model_type").innerHTML = "Model " + modelType;
+        }
+
+        // primi 4 allenamenti
+        if (workoutArrayIndex < 4) {
+            button.onclick = function () {
+                $("#f1").empty();
+                $("#f2").empty();
+                current_workoutArrayIndex = current_workoutArrayIndex + 1;
+                generateHTML(current_workoutArrayIndex);
+                document.getElementById("evaluate_button").click();
+            };
+        }
+        // al quinto cambio il nome del bottone e aggi
+        else if (workoutArrayIndex === 4) {
+            button.innerHTML = 'Evaluation Phase';
+            let col = document.getElementById("col1");
+
+            document.getElementById("evaluate_button").click();
+            button.onclick = function () {
+                $("#f1").empty();
+                $("#f2").empty();
+
+                // rimuovo la vecchia visualizzazione del voto
+                document.getElementById("mark").remove();
+
+                // creo la struttura del nuovo bottone
+                //let eval_button = document.createElement("form");
+                let eval_button_div = document.createElement("div");
+                eval_button_div.className = "from-group";
+                let button_input = document.createElement("input");
+                button_input.id = "evaluation_form";
+                button_input.setAttribute("type", "text");
+                button_input.setAttribute("size", "1");
+                button_input.setAttribute("maxlength", "1");
+                button_input.setAttribute("type", "text");
+                button_input.className = "form-control mark-text-zone";
+                button_input.setAttribute("aria-describedby", "inputGroup-sizing-sm");
+                button_input.setAttribute("oninput", "this.value=this.value.replace(/[^1-5]/g,'');");
+
+                eval_button_div.appendChild(button_input);
+                //eval_button.appendChild(eval_button_div);
+                // aggiungo il nuovo elemento al posto del precedente
+                document.getElementById("mark_div").appendChild(eval_button_div);
+
+                // rimuovo il pulsante per la valutazione
+                document.getElementById("evaluate_button").remove();
+
+                document.querySelector('#col2 p').innerHTML = 'Insert mark:';
+
+
+                current_workoutArrayIndex = current_workoutArrayIndex + 1;
+                generateHTML(current_workoutArrayIndex);
+
+                // disabilito gli slider relativi alle feature
+                col.classList.add("disable-div");
+            };
+            // finisco gli altri allenamenti
+        } else if (workoutArrayIndex < 9) {
+            //document.getElementById("evaluate_button").remove();
+            button.innerHTML = 'Confirm mark';
+            button.onclick = function () {
+                if (document.getElementById("evaluation_form").value !== "") {
+                    userResults.push(document.getElementById("evaluation_form").value);
+                    $("#f1").empty();
+                    $("#f2").empty();
+                    current_workoutArrayIndex = current_workoutArrayIndex + 1;
+                    generateHTML(current_workoutArrayIndex);
+                    document.getElementById("evaluation_form").value = "";
+                } else {
+                    alert("No mark inserted!");
+                }
+            };
+            // termino la fase di valutazione... (da fare)
+        } else {
+            button.innerHTML = 'Terminate Evaluation';
+            button.className = "btn btn-outline-success mb-2 wkbotton";
+            button.onclick = function () {
+                userResults.push(document.getElementById("evaluation_form").value);
+                var markArray = randomWorkouts.map(x => Math.trunc(x / 3) + 1);
+                var finalTestArray = userResults.concat(markArray);
+                finalTestArray = finalTestArray.concat(randomWorkouts);
+                finalTestArray = finalTestArray.concat(randomModels);
+                finalTestArray = finalTestArray.concat(randomFeatures);
+                $.ajax({
+                    url: 'saveResults',
+                    type: 'POST',
+                    data: {
+                        results: finalTestArray
+                    },
+                    success: function (response) {
+                        workoutArrayIndex = numFeatures;
+                        $("#list-container").empty();
+                        var p = document.createElement("h2");
+                        p.innerHTML = "Thank you for partecipating to our survey!";
+                        p.className = "row justify-content-center";
+                        document.getElementById("list-container").append(p);
+                    },
+                    error: function () {
+                        console.log("Errore richiesta valutazione")
+                    }
+                })
+            }
+        }
+    }
+
+    function resetFeaturesValue() {
+        $("#f1").empty();
+        $("#f2").empty();
+        generateHTML(current_workoutArrayIndex);
+        document.getElementById("evaluate_button").click();
+
+    }
+
+    let current_workoutArrayIndex = 0;
+    generateHTML(current_workoutArrayIndex);
+
+</script>
 </body>
 </html>
